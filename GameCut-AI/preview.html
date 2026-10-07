@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your AI Short is Ready - GameCut AI</title>
+    <script src="js/theme-init.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/preview.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#paint0_linear_result)" />
+                    <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear_result)" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear_result)" stroke-width="2" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="paint0_linear_result" x1="12" y1="2" x2="12" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient>
+                        <linearGradient id="paint1_linear_result" x1="12" y1="17" x2="12" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient>
+                        <linearGradient id="paint2_linear_result" x1="12" y1="12" x2="12" y2="17" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient>
+                    </defs>
+                </svg>
+                <span>GameCut <span class="text-gradient">AI</span></span>
+            </a>
+            <div class="nav-actions">
+                <a href="upload.html" class="btn btn-outline">New Upload</a>
+                <button class="btn btn-primary" id="downloadBtn">Download</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="results-main">
+        <section class="container results-hero">
+            <div class="results-copy fade-in">
+                <span class="badge">AI short generated</span>
+                <h1>Your YouTube-ready short is ready.</h1>
+                <p>GameCut found the strongest moments, cut the dead space, added subtitles, music, a thumbnail, and a title. Review it once, then download.</p>
+                <div class="results-actions">
+                    <button class="btn btn-primary btn-lg" id="previewBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        Preview
+                    </button>
+                    <button class="btn btn-secondary btn-lg" id="downloadBtnHero">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-video-card fade-in" style="animation-delay: 0.1s;">
+                <div class="short-frame" id="videoPreview">
+                    <div class="short-art"></div>
+                    <div class="subtitle-overlay">1v4 CLUTCH TO SAVE THE GAME!</div>
+                    <button class="play-preview" aria-label="Preview generated short">
+                        <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </button>
+                </div>
+                <div class="video-meta-row">
+                    <span>9:16 Short</span>
+                    <span>00:45</span>
+                    <span>1080p</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="container results-grid">
+            <div class="result-panel ai-summary">
+                <div class="section-header-small">
+                    <h3>AI Summary</h3>
+                    <span class="status-done result-status">Ready</span>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span>Original Video</span>
+                        <strong>24:18</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Output Video</span>
+                        <strong>00:45</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Highlights Found</span>
+                        <strong>12</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Style</span>
+                        <strong>Esports</strong>
+                    </div>
+                </div>
+                <ul class="result-checklist">
+                    <li><span>Subtitle</span><strong>Added</strong></li>
+                    <li><span>Music</span><strong>Added</strong></li>
+                    <li><span>Thumbnail</span><strong>Generated</strong></li>
+                    <li><span>Title</span><strong>Generated</strong></li>
+                </ul>
+            </div>
+
+            <div class="result-panel">
+                <h3>Suggested Title</h3>
+                <div class="copy-box">1v4 CLUTCH to save the game!</div>
+                <h3>Hashtags</h3>
+                <div class="copy-box small">#valorant #clutch #gaming #shorts #gamecut</div>
+            </div>
+
+            <div class="result-panel thumbnail-panel">
+                <h3>Generated Thumbnail</h3>
+                <div class="thumbnail-preview">
+                    <span>1v4 CLUTCH</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="exportToast">
+        <div class="toast-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="toast-content">
+            <h4>Download started</h4>
+            <p>Your AI-generated short is being prepared.</p>
+        </div>
+        <button class="icon-btn" onclick="this.parentElement.classList.remove('show')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/storage-manager.js"></script>
+    <script src="js/preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+DirectoryIndex index.php index.html
+ErrorDocument 404 /AI%20Video%20Editor/GameCut-AI/404.php
+ErrorDocument 500 /AI%20Video%20Editor/GameCut-AI/500.php
+
+Options -Indexes
+ServerSignature Off
+php_flag display_errors Off
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "DENY"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^\.env(?:\..*)?$ - [F,L,NC]
+    RewriteRule ^.*\.(?:sql|log)$ - [F,L,NC]
+    RewriteRule ^(database|logs|python|tmp)(/|$) - [F,L]
+    RewriteRule ^uploads/.*\.(php[0-9]?|phtml|phar)$ - [F,L]
+</IfModule>

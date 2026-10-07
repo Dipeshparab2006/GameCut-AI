@@ -1,0 +1,214 @@
+<?php
+require_once 'php/bootstrap.php';
+require_once 'php/config.php';
+require_once 'php/session.php';
+
+// Require authentication
+requireAuth();
+
+// Get current user data
+$currentUser = getCurrentUser();
+$userId = (int)($currentUser['id'] ?? 0);
+$projectId = (int)($_GET['project_id'] ?? 0);
+$jobStatus = null;
+
+if ($projectId > 0) {
+    try {
+        $stmt = $pdo->prepare(
+            "SELECT latest_job.status, latest_job.progress, latest_job.current_step
+             FROM projects p
+             LEFT JOIN videos v ON v.project_id = p.id
+             LEFT JOIN (
+                 SELECT j1.video_id, j1.status, j1.progress, j1.current_step
+                 FROM ai_jobs j1
+                 INNER JOIN (
+                     SELECT video_id, MAX(id) AS latest_id
+                     FROM ai_jobs
+                     GROUP BY video_id
+                 ) newest ON newest.video_id = j1.video_id AND newest.latest_id = j1.id
+             ) latest_job ON latest_job.video_id = v.id
+             WHERE p.id = ? AND p.user_id = ? AND p.delete_requested_at IS NULL
+             LIMIT 1"
+        );
+        $stmt->execute([$projectId, $userId]);
+        $jobStatus = $stmt->fetch();
+    } catch (PDOException $e) {
+        error_log('Processing load error: ' . $e->getMessage());
+    }
+}
+
+$initialProgress = (int)($jobStatus['progress'] ?? 0);
+$initialStep = $jobStatus['current_step'] ?? 'Waiting for worker';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing - GameCut AI</title>
+    <script src="js/theme-init.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/processing.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="processing-body">
+    <!-- Simple Navbar -->
+    <nav class="navbar scrolled">
+        <div class="container nav-container" style="justify-content: center;">
+            <a href="index.php" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#paint0_linear_p)" />
+                    <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear_p)" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear_p)" stroke-width="2" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="paint0_linear_p" x1="12" y1="2" x2="12" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient>
+                        <linearGradient id="paint1_linear_p" x1="12" y1="17" x2="12" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient>
+                        <linearGradient id="paint2_linear_p" x1="12" y1="12" x2="12" y2="17" gradientUnits="userSpaceOnUse"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient>
+                    </defs>
+                </svg>
+                <span>GameCut <span class="text-gradient">AI</span></span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="processing-main" data-project-id="<?php echo (int)$projectId; ?>">
+        <div class="processing-container">
+            <section class="processing-hero">
+                <div>
+                    <span class="badge">AI render in progress</span>
+                    <h1>Creating your gaming short</h1>
+                    <p>GameCut is finding the best moments, removing dead space, transcribing audio, selecting optimal highlights, and rendering your 9:16 short.</p>
+                </div>
+                <div class="render-chip">
+                    <span class="live-dot"></span>
+                    AI render active
+                </div>
+            </section>
+
+            <div class="processing-grid">
+                <section class="render-card progress-card">
+                    <div class="progress-circle-wrapper">
+                        <svg class="progress-circle" width="220" height="220" viewBox="0 0 200 200">
+                            <circle class="circle-bg" cx="100" cy="100" r="90" fill="none" stroke-width="12"></circle>
+                            <circle class="circle-progress" cx="100" cy="100" r="90" fill="none" stroke-width="12" id="progressCircle"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <span>Progress</span>
+                            <h2 id="progressPercent"><?php echo $initialProgress; ?>%</h2>
+                        </div>
+                    </div>
+
+                    <div class="status-container">
+                        <h3 id="currentStepText" class="text-gradient"><?php echo htmlspecialchars($initialStep); ?></h3>
+                        <p id="estimatedTime">Estimated time remaining: <span>Calculations...</span></p>
+                    </div>
+
+                    <div class="render-preview">
+                        <div class="preview-phone">
+                            <div class="preview-shimmer"></div>
+                            <span>Building 9:16 Short</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="render-card">
+                    <div class="render-card-header">
+                        <div>
+                            <h3>Render pipeline</h3>
+                            <p>Each stage updates automatically.</p>
+                        </div>
+                        <span class="status-processing project-status">Running</span>
+                    </div>
+
+                    <div class="render-metrics">
+                        <div><span>Source</span><strong>Upload</strong></div>
+                        <div><span>Target</span><strong>00:45</strong></div>
+                        <div><span>Format</span><strong>9:16</strong></div>
+                    </div>
+
+                    <div class="steps-list">
+                        <div class="step-item completed" id="step-1">
+                            <div class="step-icon">
+                                <div class="spinner hidden"></div>
+                                <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Upload Complete</span>
+                        </div>
+
+                        <div class="step-item active" id="step-2">
+                            <div class="step-icon">
+                                <div class="spinner"></div>
+                                <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Scene Detection</span>
+                        </div>
+
+                        <div class="step-item pending" id="step-3">
+                            <div class="step-icon">
+                                <div class="spinner hidden"></div>
+                                <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Speech &amp; Audio Analysis</span>
+                        </div>
+
+                        <div class="step-item pending" id="step-4">
+                            <div class="step-icon">
+                                <div class="spinner hidden"></div>
+                                <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Finding Highlights</span>
+                        </div>
+
+                        <div class="step-item pending" id="step-5">
+                            <div class="step-icon">
+                                <div class="spinner hidden"></div>
+                                <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>AI Editing Plan</span>
+                        </div>
+
+                        <div class="step-item pending" id="step-6">
+                            <div class="step-icon">
+                                <div class="spinner hidden"></div>
+                                <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Rendering 9:16 Video</span>
+                        </div>
+
+                        <div class="step-item pending" id="step-7">
+                            <div class="step-icon">
+                                <div class="spinner hidden"></div>
+                                <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Validating Output</span>
+                        </div>
+
+                        <div class="step-item pending" id="step-8">
+                            <div class="step-icon">
+                                <div class="spinner hidden"></div>
+                                <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span>Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-feed">
+                        <h4>AI activity</h4>
+                        <p>Detecting spikes in audio, motion, and scene transitions.</p>
+                        <p>Transcribing speech and scoring highlight candidates.</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="processing-actions">
+                <a href="upload.php" class="btn btn-outline text-muted">Back to Upload</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/storage-manager.js"></script>
+    <script src="js/processing.js"></script>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - GameCut AI</title>
+    <script src="js/theme-init.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .settings-shell {
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 1.5rem;
+        }
+
+        .settings-sidebar,
+        .settings-panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .settings-sidebar {
+            padding: 1rem;
+            align-self: start;
+            position: sticky;
+            top: 1rem;
+        }
+
+        .settings-nav-item {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .settings-nav-item:hover,
+        .settings-nav-item.active {
+            background: color-mix(in srgb, var(--primary) 12%, transparent);
+            color: var(--primary);
+        }
+
+        .settings-panel {
+            display: none;
+            padding: 1.5rem;
+        }
+
+        .settings-panel.active {
+            display: block;
+            animation: fadeIn 0.35s ease both;
+        }
+
+        .panel-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-heading p {
+            margin-top: 0.35rem;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .setting-card {
+            border: 1px solid var(--border);
+            background: var(--background);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .theme-choice-grid,
+        .accent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .choice-card {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            text-align: left;
+            min-height: 92px;
+        }
+
+        .choice-card.active {
+            border-color: var(--primary);
+            background: color-mix(in srgb, var(--primary) 8%, var(--card));
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+        }
+
+        .choice-preview {
+            height: 28px;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        .preview-light { background: linear-gradient(90deg, #ffffff 50%, #e2e8f0 50%); }
+        .preview-dark { background: linear-gradient(90deg, #09090b 50%, #27272a 50%); }
+        .preview-system { background: linear-gradient(90deg, var(--card) 0 50%, var(--background) 50%); }
+
+        .accent-swatch {
+            height: 44px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .avatar-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-large img {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            border: 3px solid var(--border);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .toggle-row,
+        .session-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toggle-row:last-child,
+        .session-row:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-row p,
+        .session-row p {
+            margin-top: 0.2rem;
+            font-size: 0.875rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            background: var(--border-light);
+            border-radius: 999px;
+            border: 1px solid var(--border);
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            left: 3px;
+            top: 3px;
+            border-radius: 50%;
+            background: var(--card);
+            box-shadow: var(--shadow-sm);
+        }
+
+        input:checked + .slider {
+            background: var(--primary);
+        }
+
+        input:checked + .slider::before {
+            transform: translateX(22px);
+        }
+
+        .danger-zone {
+            border-color: color-mix(in srgb, var(--error) 45%, var(--border));
+            background: color-mix(in srgb, var(--error) 8%, var(--background));
+        }
+
+        .settings-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .permission-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .permission-card {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            border: 1px solid var(--border);
+            background: var(--background);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .permission-card p {
+            margin-top: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .permission-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--primary) 14%, transparent);
+            color: var(--primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+        html[data-theme="light"] .settings-sidebar,
+        html[data-theme="light"] .settings-panel {
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.07);
+        }
+
+        html[data-theme="light"] .setting-card,
+        html[data-theme="light"] .permission-card {
+            background: color-mix(in srgb, var(--card) 82%, var(--background));
+        }
+
+        html[data-theme="light"] .slider::before {
+            background: #ffffff;
+        }
+
+        .storage-meter {
+            margin-top: 1rem;
+        }
+
+        .storage-meter-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .settings-shell {
+                grid-template-columns: 1fr;
+            }
+            .settings-sidebar {
+                position: static;
+                display: flex;
+                overflow-x: auto;
+            }
+            .settings-nav-item {
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .settings-grid,
+            .form-row,
+            .theme-choice-grid {
+                grid-template-columns: 1fr;
+            }
+            .panel-heading,
+            .toggle-row,
+            .session-row,
+            .settings-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#settingsLogoA)" /><path d="M2 17L12 22L22 17" stroke="url(#settingsLogoB)" stroke-width="2" stroke-linecap="round"/><path d="M2 12L12 17L22 12" stroke="url(#settingsLogoC)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="settingsLogoA" x1="12" y1="2" x2="12" y2="12"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient><linearGradient id="settingsLogoB" x1="12" y1="17" x2="12" y2="22"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient><linearGradient id="settingsLogoC" x1="12" y1="12" x2="12" y2="17"><stop stop-color="#7C3AED" /><stop offset="1" stop-color="#3B82F6" /></linearGradient></defs></svg>
+                <span>GameCut <span class="text-gradient">AI</span></span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg><span>Dashboard</span></a>
+            <a href="projects.html" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg><span>Projects</span></a>
+            <a href="upload.html" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg><span>Upload</span></a>
+            <a href="settings.html" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg><span>Settings</span></a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <div class="breadcrumbs"><a href="dashboard.html">Dashboard</a><span>/</span><span>Settings</span></div>
+                <h2>Settings</h2>
+            </div>
+            <div class="topbar-actions">
+                <button class="icon-btn" aria-label="Notifications"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span class="notification-badge">3</span></button>
+                <div class="profile-dropdown"><div class="avatar"><img src="https://ui-avatars.com/api/?name=Aarav+Sharma&background=7C3AED&color=fff" alt="Aarav Sharma"></div><span>Aarav</span></div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="settings-shell">
+                <nav class="settings-sidebar" aria-label="Settings sections">
+                    <button class="settings-nav-item active" data-settings-tab="appearance">Appearance</button>
+                    <button class="settings-nav-item" data-settings-tab="profile">Account/Profile</button>
+                    <button class="settings-nav-item" data-settings-tab="notifications">Notifications</button>
+                    <button class="settings-nav-item" data-settings-tab="security">Privacy & Security</button>
+                    <button class="settings-nav-item" data-settings-tab="permissions">Device Access</button>
+                    <button class="settings-nav-item" data-settings-tab="preferences">Preferences</button>
+                </nav>
+
+                <section class="settings-panel active" data-settings-panel="appearance">
+                    <div class="panel-heading"><div><h3>Appearance</h3><p>Personalize how GameCut looks and feels across your devices.</p></div></div>
+                    <div class="setting-card">
+                        <label>Theme</label>
+                        <div class="theme-choice-grid">
+                            <button class="choice-card" data-theme-value="light"><div class="choice-preview preview-light"></div><strong>Light</strong><p>Bright, clean workspace.</p></button>
+                            <button class="choice-card" data-theme-value="dark"><div class="choice-preview preview-dark"></div><strong>Dark</strong><p>Low-glare creator mode.</p></button>
+                            <button class="choice-card" data-theme-value="system"><div class="choice-preview preview-system"></div><strong>System</strong><p>Follow your device.</p></button>
+                        </div>
+                    </div>
+                    <div class="settings-grid" style="margin-top: 1rem;">
+                        <div class="setting-card"><label for="fontSize">Font size</label><select id="fontSize"><option>Comfortable</option><option>Large</option><option>Compact</option></select></div>
+                        <div class="setting-card"><label>Compact mode</label><div class="toggle-row"><div><strong>Dense dashboard</strong><p>Show more projects and stats per screen.</p></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div></div>
+                        <div class="setting-card" style="grid-column: 1 / -1;"><label>Accent color</label><div class="accent-grid"><button class="accent-swatch" style="background:#7C3AED" data-toast="Accent color saved"></button><button class="accent-swatch" style="background:#2563EB" data-toast="Accent color saved"></button><button class="accent-swatch" style="background:#059669" data-toast="Accent color saved"></button></div></div>
+                    </div>
+                    <div class="settings-actions"><button class="btn btn-outline" data-settings-cancel>Cancel</button><button class="btn btn-primary" data-settings-save>Save Changes</button></div>
+                </section>
+
+                <section class="settings-panel" data-settings-panel="profile">
+                    <div class="panel-heading"><div><h3>Account/Profile</h3><p>Update your public creator identity and account details.</p></div></div>
+                    <div class="avatar-row"><div class="avatar-large"><img src="https://ui-avatars.com/api/?name=Aarav+Sharma&background=7C3AED&color=fff&size=128" alt="Aarav Sharma"></div><div><button class="btn btn-secondary" data-toast="Avatar upload opened">Upload Avatar</button><p>JPG, PNG, or WEBP. Recommended 512x512.</p></div></div>
+                    <form>
+                        <div class="form-row"><div class="form-group"><label>Name</label><input type="text" value="Aarav Sharma"></div><div class="form-group"><label>Email</label><input type="email" value="aarav@gamecut.ai"></div></div>
+                        <div class="form-group"><label>Bio</label><textarea rows="5">Valorant and BGMI creator turning ranked chaos into daily Shorts.</textarea></div>
+                    </form>
+                    <div class="settings-actions"><button class="btn btn-outline" data-settings-cancel>Cancel</button><button class="btn btn-primary" data-settings-save>Save Profile</button></div>
+                </section>
+
+                <section class="settings-panel" data-settings-panel="notifications">
+                    <div class="panel-heading"><div><h3>Notifications</h3><p>Choose when GameCut should reach you.</p></div></div>
+                    <div class="setting-card">
+                        <div class="toggle-row"><div><strong>Email notifications</strong><p>Get an email when an AI short is ready.</p></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                        <div class="toggle-row"><div><strong>Push notifications</strong><p>Receive browser alerts for finished renders.</p></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+                        <div class="toggle-row"><div><strong>Marketing updates</strong><p>Occasional product launches and creator tips.</p></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+                    </div>
+                    <div class="settings-actions"><button class="btn btn-outline" data-settings-cancel>Cancel</button><button class="btn btn-primary" data-settings-save>Save Notifications</button></div>
+                </section>
+
+                <section class="settings-panel" data-settings-panel="security">
+                    <div class="panel-heading"><div><h3>Privacy & Security</h3><p>Protect your account and manage active devices.</p></div></div>
+                    <div class="settings-grid">
+                        <div class="setting-card"><h4>Change password</h4><div class="form-group"><label>Current password</label><input type="password" placeholder="••••••••"></div><div class="form-group"><label>New password</label><input type="password" placeholder="••••••••"></div><button class="btn btn-secondary" data-toast="Password updated">Update Password</button></div>
+                        <div class="setting-card"><div class="toggle-row"><div><strong>Two-factor authentication</strong><p>Add an authenticator app before sensitive changes.</p></div><label class="switch"><input type="checkbox"><span class="slider"></span></label></div></div>
+                        <div class="setting-card" style="grid-column: 1 / -1;"><h4>Active sessions</h4><div class="session-row"><div><strong>Windows Chrome</strong><p>Delhi, India • Current session</p></div><button class="btn btn-outline" data-toast="Current session kept">Current</button></div><div class="session-row"><div><strong>iPhone Safari</strong><p>Last active 2 hours ago</p></div><button class="btn btn-outline" data-toast="Session revoked">Revoke</button></div></div>
+                        <div class="setting-card danger-zone" style="grid-column: 1 / -1;"><h4>Delete account</h4><p>Permanently remove your videos, settings, and account data.</p><button class="btn btn-outline" data-toast="Delete request requires confirmation">Delete Account</button></div>
+                    </div>
+                    <div class="settings-actions"><button class="btn btn-outline" data-settings-cancel>Cancel</button><button class="btn btn-primary" data-settings-save>Save Security</button></div>
+                </section>
+
+                <section class="settings-panel" data-settings-panel="permissions">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Device Access</h3>
+                            <p>Control the browser permissions GameCut needs for a smooth upload and render experience.</p>
+                        </div>
+                    </div>
+
+                    <div class="permission-grid">
+                        <div class="permission-card">
+                            <div>
+                                <h4>Video file access</h4>
+                                <p>GameCut only reads the video you manually choose in the upload picker. It cannot scan your folders.</p>
+                            </div>
+                            <span class="permission-status" data-permission-status="files">granted when you choose a video</span>
+                        </div>
+
+                        <div class="permission-card">
+                            <div>
+                                <h4>Render notifications</h4>
+                                <p>Allow browser notifications so you can leave the tab and return when your AI short is ready.</p>
+                            </div>
+                            <div style="display: grid; gap: 0.5rem; justify-items: end;">
+                                <span class="permission-status" data-permission-status="notifications">checking</span>
+                                <button class="btn btn-secondary" data-request-notifications>Allow Notifications</button>
+                            </div>
+                        </div>
+
+                        <div class="permission-card">
+                            <div>
+                                <h4>Persistent browser storage</h4>
+                                <p>Protect temporary render metadata, preferences, and cached settings from automatic browser cleanup.</p>
+                            </div>
+                            <div style="display: grid; gap: 0.5rem; justify-items: end;">
+                                <span class="permission-status" data-permission-status="persistentStorage">checking</span>
+                                <button class="btn btn-secondary" data-request-storage>Protect Storage</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-card">
+                            <h4>Browser storage estimate</h4>
+                            <div class="storage-meter">
+                                <div class="storage-meter-row">
+                                    <span><span data-storage-used>Checking</span> used</span>
+                                    <span><span data-storage-quota>Checking</span> available</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" data-storage-bar style="width: 8%"></div>
+                                </div>
+                                <p data-storage-status style="margin-top: 0.75rem;">Checking browser storage...</p>
+                            </div>
+                            <button class="btn btn-outline" style="margin-top: 1rem;" data-refresh-storage>Refresh Storage</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-actions"><button class="btn btn-outline" data-settings-cancel>Cancel</button><button class="btn btn-primary" data-settings-save>Save Access Settings</button></div>
+                </section>
+
+                <section class="settings-panel" data-settings-panel="preferences">
+                    <div class="panel-heading"><div><h3>Preferences</h3><p>Localize exports, billing views, and creator defaults.</p></div></div>
+                    <div class="settings-grid">
+                        <div class="setting-card"><label>Language</label><select><option>English</option><option>Hindi</option><option>Spanish</option></select></div>
+                        <div class="setting-card"><label>Timezone</label><select><option>Asia/Kolkata</option><option>UTC</option><option>America/New_York</option></select></div>
+                        <div class="setting-card"><label>Currency</label><select><option>USD</option><option>INR</option><option>EUR</option></select></div>
+                        <div class="setting-card"><label>Default export</label><select><option>YouTube Shorts 1080p</option><option>TikTok 1080p</option><option>Instagram Reels 1080p</option></select></div>
+                    </div>
+                    <div class="settings-actions"><button class="btn btn-outline" data-settings-cancel>Cancel</button><button class="btn btn-primary" data-settings-save>Save Preferences</button></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/storage-manager.js"></script>
+    <script>
+        (function() {
+            try {
+                // Tab switching with URL hash persistence
+                function getActiveSettingsTab() {
+                    var hash = window.location.hash.replace('#', '');
+                    var validTabs = ['appearance', 'profile', 'notifications', 'security', 'permissions', 'preferences'];
+                    if (validTabs.indexOf(hash) !== -1) return hash;
+                    return 'appearance';
+                }
+
+                function activateSettingsTab(tabId) {
+                    try {
+                        document.querySelectorAll('[data-settings-tab]').forEach(function(item) { item.classList.remove('active'); });
+                        document.querySelectorAll('[data-settings-panel]').forEach(function(panel) { panel.classList.remove('active'); });
+                        var tabBtn = document.querySelector('[data-settings-tab="' + tabId + '"]');
+                        var tabPanel = document.querySelector('[data-settings-panel="' + tabId + '"]');
+                        if (tabBtn) tabBtn.classList.add('active');
+                        if (tabPanel) tabPanel.classList.add('active');
+                    } catch (e) {
+                        // Non-critical UI error
+                    }
+                }
+
+                // Set initial tab from hash
+                activateSettingsTab(getActiveSettingsTab());
+
+                document.querySelectorAll('[data-settings-tab]').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        var tabId = button.dataset.settingsTab;
+                        if (tabId) {
+                            activateSettingsTab(tabId);
+                            window.location.hash = tabId;
+                        }
+                    });
+                });
+
+                // Save buttons - show toast
+                document.querySelectorAll('[data-settings-save]').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        if (window.showToast) {
+                            window.showToast('Settings saved', 'Your preferences were updated.');
+                        }
+                    });
+                });
+
+                // Cancel buttons - show toast
+                document.querySelectorAll('[data-settings-cancel]').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        if (window.showToast) {
+                            window.showToast('Changes discarded', 'No settings were changed.');
+                        }
+                    });
+                });
+
+                // Theme choice cards in settings.html (non-PHP version)
+                document.querySelectorAll('.choice-card[data-theme-value]').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        try {
+                            document.querySelectorAll('.choice-card[data-theme-value]').forEach(function(card) {
+                                card.classList.remove('active');
+                            });
+                            button.classList.add('active');
+                            // Also update via app.js setTheme if available
+                            var event = new CustomEvent('theme-update', { detail: { theme: button.dataset.themeValue } });
+                            document.dispatchEvent(event);
+                        } catch (e) {
+                            // Non-critical
+                        }
+                    });
+                });
+            } catch (e) {
+                // Fallback: if anything fails, settings still render
+            }
+        })();
+    </script>
+</body>
+</html>

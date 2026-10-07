@@ -1,0 +1,227 @@
+/* GameCut AI - cinematic motion layer */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-ready [data-animate] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  filter: blur(10px);
+  transition:
+    opacity 760ms var(--ease-out-expo),
+    transform 900ms var(--ease-spring),
+    filter 760ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.motion-ready [data-animate].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(115deg, transparent 0 26%, rgba(255,255,255,0.08) 36%, transparent 47%),
+    radial-gradient(circle at 74% 18%, rgba(16,185,129,0.14), transparent 18rem);
+  opacity: 0.65;
+  transform: translateX(-18%);
+  animation: heroSweep 8s var(--ease-in-out, ease-in-out) infinite;
+  pointer-events: none;
+}
+
+.badge {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 28px rgba(124, 58, 237, 0.22);
+}
+
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: -40% auto -40% -30%;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.42), transparent);
+  transform: skewX(-18deg);
+  animation: badgeGlint 4.5s ease-in-out infinite;
+}
+
+.hero-title .text-gradient {
+  background-size: 180% 180%;
+  animation: gradientFlow 6s ease-in-out infinite;
+}
+
+.dashboard-mockup {
+  position: relative;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  animation: mockupDrift 7s ease-in-out infinite;
+}
+
+.dashboard-mockup::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(from 140deg, rgba(124,58,237,0.0), rgba(124,58,237,0.7), rgba(59,130,246,0.65), rgba(16,185,129,0.48), rgba(124,58,237,0.0));
+  filter: blur(18px);
+  opacity: 0.42;
+  animation: auraSpin 9s linear infinite;
+}
+
+.mockup-video-area {
+  position: relative;
+  overflow: hidden;
+}
+
+.mockup-video-area::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(59,130,246,0.24), transparent 48%);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+  animation: videoGrid 8s linear infinite;
+}
+
+.play-icon,
+.play-btn-large {
+  position: relative;
+  animation: playPulse 2.4s ease-in-out infinite;
+}
+
+.clip {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.clip::after,
+.wave::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.48), transparent);
+  transform: translateX(-100%);
+  animation: timelineScan 2.8s ease-in-out infinite;
+}
+
+.feature-card,
+.pricing-card,
+.accordion-item,
+.contact-form-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before,
+.pricing-card::before,
+.contact-form-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent 34%);
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
+}
+
+.feature-card:hover,
+.pricing-card:hover,
+.contact-form-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.24), 0 0 30px rgba(124,58,237,0.13);
+}
+
+.feature-card:hover::before,
+.pricing-card:hover::before,
+.contact-form-container:hover::before {
+  opacity: 1;
+}
+
+.step-icon {
+  box-shadow: 0 0 0 rgba(124,58,237,0.0);
+  animation: stepBeacon 3.2s ease-in-out infinite;
+}
+
+.floating-caption {
+  animation: captionPop 2.6s ease-in-out infinite;
+}
+
+@keyframes heroSweep {
+  0%, 100% { transform: translateX(-18%); opacity: 0.38; }
+  50% { transform: translateX(12%); opacity: 0.72; }
+}
+
+@keyframes badgeGlint {
+  0%, 48% { left: -35%; }
+  65%, 100% { left: 115%; }
+}
+
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes mockupDrift {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+@keyframes auraSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes videoGrid {
+  to { background-position: 28px 28px, 28px 28px, 0 0; }
+}
+
+@keyframes playPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.36); }
+  50% { box-shadow: 0 0 0 14px rgba(124,58,237,0); }
+}
+
+@keyframes timelineScan {
+  0%, 35% { transform: translateX(-100%); }
+  70%, 100% { transform: translateX(100%); }
+}
+
+@keyframes stepBeacon {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.22); }
+  50% { box-shadow: 0 0 0 10px rgba(124,58,237,0); }
+}
+
+@keyframes captionPop {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .motion-ready [data-animate] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}

@@ -1,0 +1,135 @@
+from pathlib import Path
+from docx import Document
+from docx.text.paragraph import Paragraph
+from docx.table import Table
+
+ROOT = Path(__file__).resolve().parents[1]
+src = ROOT / 'output' / 'report' / 'GameCut_AI_Project_Report_Content_Only.docx'
+out = ROOT / 'output' / 'report' / 'GameCut_AI_Project_Report_Structured.txt'
+doc = Document(str(src))
+lines = []
+def add(text=''):
+    lines.append(text.rstrip())
+
+add('A')
+add('PROJECT REPORT ON')
+add('GAMECUT AI')
+add('AI ASSISTED VIDEO EDITING AND HIGHLIGHT GENERATION PLATFORM')
+add('')
+add('Designed By: Project Student')
+add('Submitted To: Department of Computer Science')
+add('In the partial fulfillment of the requirements for B.Sc. Computer Science')
+add('Academic Year: 2025-26')
+add('')
+add('=' * 90)
+add('DECLARATION')
+add('=' * 90)
+add('I hereby declare that the project entitled “GameCut AI: AI Assisted Video Editing and Highlight Generation Platform” is my original academic work. The analysis, design, implementation, testing, and documentation presented in this report are based on the current project source and its supporting documentation. External technologies and documentation used by the project are acknowledged in the references.')
+add('Date: ____________________    Place: ____________________    Signature: Project Student')
+add('')
+add('=' * 90)
+add('CERTIFICATE')
+add('=' * 90)
+add('This is to certify that the project work entitled “GameCut AI: AI Assisted Video Editing and Highlight Generation Platform” has been satisfactorily carried out during the academic year 2025-26. The work demonstrates web development, database management, Python media processing, artificial intelligence planning, FFmpeg rendering, and software testing.')
+add('Project Guide: ____________________    External Examiner: ____________________')
+add('Head of Department: ____________________    Date: ____________________')
+add('')
+add('=' * 90)
+add('ACKNOWLEDGEMENT')
+add('=' * 90)
+add('It is my great pleasure to express sincere thanks to all those who supported the completion of this project. I am grateful to the project guide and the Department of Computer Science for their guidance and encouragement. I also acknowledge the open-source communities behind PHP, Python, MySQL, FFmpeg, OpenCV, PySceneDetect, faster-whisper, and related tools used in the implementation.')
+add('')
+add('=' * 90)
+add('INDEX')
+add('=' * 90)
+add('1. CHAPTER I - Acknowledgement')
+add('2. CHAPTER II - Synopsis of the Project')
+add('3. CHAPTER III - Main Report')
+add('   Objective and Scope of the Project')
+add('   Theoretical Background')
+add('   Survey of Literature')
+add('   Research Analysis and Design')
+add('   System Requirements Analysis')
+add('   System Planning')
+add('   Details of Hardware and Software Used')
+add('   Detailed Life Cycle of the Project')
+add('   System Architecture in Text')
+add('   Data Flow Description')
+add('   Entity Relationship Description')
+add('   Activity and Class Description')
+add('   Input and Output Screen Design')
+add('   Process Involved')
+add('   Methodology Used for Testing')
+add('   Test Cases and Test Reports')
+add('   Code and File Structure of the Project')
+add('4. CHAPTER IV - Annexure')
+add('5. CHAPTER V - Conclusion')
+add('6. CHAPTER VI - Future Enhancement')
+add('7. CHAPTER VII - References and Bibliography')
+add('')
+
+add('')
+add('=' * 90)
+add('DETAILED PROJECT CONTENT')
+add('=' * 90)
+
+details = [
+('1. PROJECT INTRODUCTION', 'GameCut AI is a browser-based AI-assisted video editing platform created for gaming content creators. It addresses the practical problem of converting long gameplay recordings into short, vertical, captioned videos. The system provides an end-to-end workflow covering authentication, source upload, project creation, asynchronous processing, media analysis, highlight selection, plan validation, FFmpeg rendering, preview, and download. The implementation separates user-facing records from execution state so processing can be monitored and recovered safely.'),
+('2. PROBLEM STATEMENT', 'Gaming creators frequently record long sessions but have limited time to review every minute of footage. The manual process requires watching the source, marking interesting moments, trimming clips, arranging them, converting the aspect ratio, creating subtitles, rendering, and checking the final file. GameCut AI combines media analysis, safe job orchestration, structured planning, and output validation to reduce that repetitive work.'),
+('3. AIM AND OBJECTIVES', 'The aim is to develop a reliable web application that identifies candidate highlights from uploaded gameplay, creates a constrained editing plan, generates a vertical short, and makes the result available through a browser preview. Objectives include secure registration and login, private upload storage, project and video management, asynchronous processing, transcript and scene analysis, audio and visual signals, candidate scoring, validated plans, subtitle and thumbnail generation, progress reporting, preview, download, regeneration, cancellation, and safe deletion.'),
+('4. SCOPE', 'The current scope includes the PHP web application, browser pages, JavaScript modules, MySQL schema and migration, Python API and worker, detection modules, agent planner, validator, FFmpeg renderer, ffprobe validation, local private media storage, and tests. It excludes automatic social publishing, cloud storage, custom model training, long-term memory, and guaranteed game-specific kill detection. These are future enhancements.'),
+('5. SURVEY OF LITERATURE', 'Traditional desktop editors provide precise manual control but require the creator to watch and mark footage. Cloud editors provide managed processing but introduce network, storage, and service dependencies. AI highlight systems reduce review time but can be opaque or difficult to reproduce. GameCut AI combines the useful ideas from these approaches while keeping a deterministic V1, local media storage, explainable candidate reasons, validated plans, and a modular path for future providers.'),
+('6. RESEARCH ANALYSIS AND DESIGN', 'The research phase identified upload, media review, highlight selection, reframing, captioning, rendering, and preview as the connected activities in the creator workflow. The design converts them into separate modules so each stage has a clear input and output. Operational risks such as duplicate processing, stale workers, invalid timestamps, missing codecs, and failed cleanup are handled explicitly.'),
+('7. SYSTEM PLANNING', 'Project planning covers investigation, requirements, architecture, database design, implementation, integration, testing, documentation, and deployment preparation. Resources include a development computer, PHP and MySQL, Python dependencies, a browser, media binaries, source storage, and test media. Deliverables include working screens, database schema, worker pipeline, test cases, documentation, and final report. Schedule risk is reduced by delivering authentication, upload, jobs, processing, preview, and tests in stages.'),
+('8. HARDWARE AND SOFTWARE USED', 'A modern computer with an Intel i5-class processor or equivalent, 8 GB or more RAM, adequate disk storage, PHP, MySQL, Python, a browser, FFmpeg, and ffprobe is suitable. PHP manages the web application; JavaScript manages browser interactions; MySQL stores durable state; Python performs analysis and rendering orchestration; OpenCV, PySceneDetect, and faster-whisper support analysis; FFmpeg and ffprobe handle media operations and validation.'),
+('9. DETAILED LIFE CYCLE', 'The project begins with investigation of the creator problem and definition of scope. Requirements are converted into screens, data entities, job states, and processing stages. The architecture is implemented in layers. Unit, integration, smoke, and concurrency tests verify behavior. Documentation records decisions, limitations, deployment requirements, and future work. The life cycle is iterative because changes to detection and rendering require regression testing.'),
+('5. THEORETICAL BACKGROUND', 'The project uses multimedia processing, asynchronous job execution, relational databases, speech recognition, computer vision, scene detection, structured planning, and web security. A video is a timeline containing audio and visual streams. Analysis produces time-based evidence. Planning converts evidence into selected ranges. Validation checks the plan. Rendering produces a derived file. Keeping these stages separate makes the platform easier to test and maintain.'),
+('6. FUNCTIONAL REQUIREMENTS', 'The application shall support user registration, login, sessions, authenticated access, media upload, project creation, video metadata, queued AI jobs, worker ownership, transcript and scene analysis, audio and visual analysis, candidate scoring, editing-plan creation, plan validation, vertical rendering, subtitles, thumbnails, ffprobe validation, progress events, preview, download, regeneration, cancellation, deletion, health checks, and cleanup.'),
+('7. NON FUNCTIONAL REQUIREMENTS', 'Reliability requires that stale or duplicate workers cannot publish output. Security requires authentication, ownership checks, controlled file paths, and safe upload handling. Maintainability requires separate detection, planning, rendering, API, and job modules. Usability requires clear queued, processing, completed, failed, and cancelled states. Performance requires asynchronous processing. Portability requires a documented PHP, MySQL, Python, and FFmpeg environment.'),
+('8. SYSTEM ARCHITECTURE IN TEXT', 'The presentation layer contains browser pages, CSS, and JavaScript. The PHP application layer handles routes, authentication, sessions, uploads, project actions, and API responses. MySQL stores users, projects, videos, jobs, job events, and sessions. The Python worker claims jobs and runs analysis, planning, rendering, and validation. Private storage separates original media, temporary analysis workspaces, and processed outputs. The validation boundary lies between plan generation and FFmpeg execution.'),
+('9. DATABASE DESIGN IN TEXT', 'Users store account identity and authentication information. Projects belong to users and provide workspaces. Videos belong to projects and store source information, duration, output path, and metadata. ai_jobs is the canonical execution state and stores status, progress, revision, ownership token, lease, and timestamps. ai_job_events is append-only history for progress, retry, failure, cancellation, and publication. Sessions connect authenticated browser activity to users.'),
+('10. DATA FLOW IN TEXT', 'A user submits a request through the browser. PHP authenticates the request and validates input. Upload processing stores the source and creates project and video records. A queued job is inserted. The worker claims it and reads the controlled source path. Analysis artifacts are written to an isolated workspace. Candidate scores are supplied to the planner. A validated plan is rendered. The output is checked with ffprobe, recorded in the database, and presented through preview and download.'),
+('11. PROCESSING PIPELINE', 'The worker claims a job, prepares a workspace, extracts or analyses audio, runs speech recognition when available, detects scenes, calculates audio and visual signals, writes JSON analysis artifacts, scores candidates, creates an editing plan, validates the plan, trims and normalizes clips, applies 1080x1920 vertical formatting, concatenates clips, maps transcript timestamps, burns subtitles, generates a thumbnail, validates the output, publishes metadata, and appends a completion event.'),
+('12. PLAN VALIDATION AND SAFETY', 'The validator rejects non-object plans, missing values, unsupported aspect ratios, empty clips, non-numeric timestamps, negative timestamps, start values greater than or equal to end values, timestamps beyond source duration, clips longer than configured limits, total duration above the permitted maximum, and overlapping clips. Invalid plans do not execute FFmpeg. If an external provider is unavailable or malformed, the deterministic provider is used.'),
+('13. JOB ORCHESTRATION', 'ai_jobs is the single canonical execution state. A worker claim receives an execution token, lease, heartbeat, and isolated workspace. Progress, retry, failure, and publication updates require the current token. Regeneration creates a new revision and cancels the old revision. Project deletion is asynchronous so active processing is cancelled before files and rows are removed.'),
+('14. SCREEN AND MODULE DESIGN', 'Registration and login provide access control. Dashboard shows projects and actions. Upload accepts source media and project information. Processing shows status, progress, messages, cancellation, and regeneration where permitted. Preview shows the generated output and download action. Projects shows history. Settings and profile provide account-facing configuration. JavaScript files are organized by screen, while PHP and Python modules follow backend responsibilities.'),
+('15. HARDWARE AND SOFTWARE', 'A modern Windows computer with an Intel i5-class processor or equivalent, at least 8 GB RAM, adequate video storage, PHP, MySQL, Python, a browser, FFmpeg, and ffprobe is suitable for development. The repository includes PHP pages and helpers, JavaScript modules, database schema and migration, Python agents, detection, processing, jobs, utilities, tests, bundled binaries, uploads, and documentation.'),
+('16. LIFE CYCLE AND PLANNING', 'The project life cycle consists of preliminary investigation, requirement analysis, planning, architecture, database design, implementation, integration, verification, evaluation, documentation, and deployment preparation. The system can be developed incrementally: authentication and upload first, then project and job state, analysis, planning, rendering, preview, and testing. Risks include storage exhaustion, missing codecs, speech-recognition failure, malformed plans, database interruption, stale workers, and unsafe deletion.'),
+('17. TESTING METHODOLOGY', 'Unit tests verify analysis, scoring, planning, rendering, and helper behavior. Integration tests verify the application pipeline. Smoke tests verify the PHP surface. Concurrency tests verify worker ownership and live queue behavior. Regression tests are required after changes to timestamps, job transitions, output paths, rendering commands, or cleanup logic.'),
+('18. TEST CASES', 'TC-01 registration creates an account. TC-02 login establishes a session. TC-03 upload stores original media. TC-04 project creation stores metadata. TC-05 queued job is claimed with a token. TC-06 malformed plan is rejected. TC-07 overlapping clips are rejected. TC-08 valid plan renders output. TC-09 ffprobe validates output. TC-10 stale worker cannot publish. TC-11 regeneration creates a new revision. TC-12 cancellation prevents unsafe continuation. TC-13 deletion waits for active work. TC-14 preview exposes completed output. TC-15 provider failure falls back safely.'),
+('19. SECURITY AND MAINTENANCE', 'Authentication and protected routes must verify identity and ownership. File paths must remain controlled relative paths. The planner cannot submit arbitrary shell commands. Production deployment should add HTTPS, secure cookies, CSRF protection, upload-size limits, MIME checks, antivirus scanning, rate limiting, private storage permissions, secret management, and audit logging. Maintenance includes monitoring failed jobs, clearing temporary files, checking disk usage, rotating logs, testing backups, updating dependencies, and running the full test suite.'),
+('20. LIMITATIONS', 'The current V1 does not guarantee semantic understanding of every game. It has no dedicated kill detector, custom model training, cloud storage, long-term memory, or automatic publishing. Speech recognition is affected by noise and missing audio. Local storage limits scale. Deterministic scoring improves repeatability but may miss subtle context that future multimodal models could detect.'),
+('21. CONCLUSION', 'GameCut AI demonstrates a complete academic project for AI-assisted video editing. It combines web development, database design, asynchronous job processing, multimedia analysis, constrained planning, media rendering, preview, and testing. The main engineering contribution is the separation of analysis, planning, validation, and rendering together with durable job ownership and event history.'),
+('22. FUTURE ENHANCEMENT', 'Future work may include game-specific event detection, multimodal ranking, human review before rendering, cloud storage, scalable workers, branded templates, multiple aspect ratios, multilingual captions, improved subtitle styling, direct social publishing, monitoring dashboards, and stronger production security. Each enhancement should preserve plan validation and ownership safeguards.'),
+('23. REFERENCES AND BIBLIOGRAPHY', 'GameCut AI documentation: docs/architecture.md, docs/ai-pipeline.md, database/database.sql, and database/migrations/001_durable_job_orchestration.sql. PHP documentation: https://www.php.net/docs.php. Python documentation: https://docs.python.org/3/. FFmpeg documentation: https://ffmpeg.org/documentation.html. OpenCV documentation: https://docs.opencv.org/. PySceneDetect documentation: https://www.scenedetect.com/. MySQL documentation: https://dev.mysql.com/doc/. faster-whisper project documentation is used for speech-processing context.'),
+]
+for idx, (title, body) in enumerate(details):
+    if idx == 0:
+        add('CHAPTER II - SYNOPSIS OF THE PROJECT')
+        add('')
+    if idx == 4:
+        add('CHAPTER III - MAIN REPORT')
+        add('')
+    if idx == 20:
+        add('CHAPTER IV - ANNEXURE')
+        add('File and folder structure, test references, and deployment notes are included in the preceding main-report sections.')
+        add('')
+        add('CHAPTER V - CONCLUSION')
+        add('')
+    if idx == 21:
+        add('CHAPTER VI - FUTURE ENHANCEMENT')
+        add('')
+    if idx == 22:
+        add('CHAPTER VII - REFERENCES AND BIBLIOGRAPHY')
+        add('')
+    add('')
+    add(title)
+    add('-' * len(title))
+    add(body)
+
+add('')
+add('=' * 90)
+add('END OF PROJECT REPORT')
+add('=' * 90)
+out.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+print(out)

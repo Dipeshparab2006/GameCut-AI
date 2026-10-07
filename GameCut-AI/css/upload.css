@@ -1,0 +1,313 @@
+/* Upload Page Specific Styles */
+.upload-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px); /* Minus topbar */
+    padding: 2rem;
+}
+
+.upload-container {
+    width: 100%;
+    max-width: 600px;
+    background: var(--card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.upload-container:has(.file-preview-card:not(.hidden)) {
+    max-width: 920px;
+    padding: 2rem;
+}
+
+.upload-alert {
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+}
+
+.upload-alert-error {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #fca5a5;
+}
+
+.upload-alert-success {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #6ee7b7;
+}
+
+/* Upload Box */
+.upload-box {
+    border: 2px dashed var(--border-light);
+    border-radius: 12px;
+    padding: 4rem 2rem;
+    text-align: center;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.01);
+    cursor: pointer;
+}
+
+.upload-box:hover, .upload-box.dragover {
+    border-color: var(--primary);
+    background: rgba(124, 58, 237, 0.05);
+}
+
+.upload-icon-large {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 1.5rem;
+    background: rgba(124, 58, 237, 0.1);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.upload-box:hover .upload-icon-large, .upload-box.dragover .upload-icon-large {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+.upload-box h3 {
+    margin-bottom: 0.5rem;
+}
+
+.browse-link {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.browse-link:hover {
+    color: var(--secondary);
+}
+
+.upload-info {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* File Preview */
+.hidden {
+    display: none !important;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.preview-header h4 {
+    margin: 0;
+}
+
+.file-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+}
+
+.file-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name {
+    font-weight: 600;
+    color: var(--text);
+    word-break: break-all;
+}
+
+.file-size {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.upload-progress {
+    margin-top: 1rem;
+}
+
+.upload-progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.upload-settings {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.setting-group:first-child,
+.setting-group:last-child {
+    grid-column: 1 / -1;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.platform-toggles {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.platform-btn {
+    flex: 1;
+    background: var(--background);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.65rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    min-height: 44px;
+}
+
+.ai-addons {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.addon-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--background);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.addon-toggle input {
+    accent-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .upload-wrapper {
+        align-items: flex-start;
+        min-height: auto;
+        padding: 1.25rem;
+    }
+
+    .upload-container {
+        padding: 1.25rem;
+    }
+
+    .upload-container:has(.file-preview-card:not(.hidden)) {
+        max-width: 600px;
+        padding: 1.25rem;
+    }
+
+    .upload-box {
+        padding: 2rem 1rem;
+    }
+
+    .upload-icon-large {
+        padding: 1rem;
+    }
+
+    .upload-icon-large svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .upload-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-top: 1.75rem;
+        padding-top: 1.5rem;
+    }
+
+    .option-grid,
+    .ai-addons,
+    .upload-settings {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-height: 760px) and (min-width: 769px) {
+    .upload-wrapper {
+        align-items: flex-start;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    .upload-container:has(.file-preview-card:not(.hidden)) {
+        padding: 1.5rem;
+    }
+
+    .file-details,
+    .upload-settings {
+        margin-bottom: 1rem;
+    }
+
+    .preview-header {
+        margin-bottom: 0.75rem;
+    }
+}
+
+.platform-btn:hover {
+    border-color: var(--border-light);
+}
+
+.platform-btn.active {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+}

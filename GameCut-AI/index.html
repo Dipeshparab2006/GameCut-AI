@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameCut AI - Turn Raw Gameplay Into Viral Content Automatically</title>
+    <script src="js/theme-init.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#paint0_linear)" />
+                    <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear)" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear)" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="12" y1="2" x2="12" y2="12"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#7C3AED" />
+                            <stop offset="1" stop-color="#3B82F6" />
+                        </linearGradient>
+                        <linearGradient id="paint1_linear" x1="12" y1="17" x2="12" y2="22"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#7C3AED" />
+                            <stop offset="1" stop-color="#3B82F6" />
+                        </linearGradient>
+                        <linearGradient id="paint2_linear" x1="12" y1="12" x2="12" y2="17"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#7C3AED" />
+                            <stop offset="1" stop-color="#3B82F6" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>GameCut <span class="text-gradient">AI</span></span>
+            </a>
+
+            <div class="nav-links desktop-only">
+                <a href="#features" data-animate="fadeInUp">Features</a>
+                <a href="#how-it-works" data-animate="fadeInUp">How it Works</a>
+                <a href="#pricing" data-animate="fadeInUp">Pricing</a>
+                <a href="#faq" data-animate="fadeInUp">FAQ</a>
+                <a href="#contact" data-animate="fadeInUp">Contact</a>
+            </div>
+
+            <div class="nav-actions desktop-only">
+                <a href="login.php" class="btn btn-outline">Login</a>
+                <a href="register.php" class="btn btn-primary">Get Started</a>
+            </div>
+
+            <button class="mobile-menu-btn mobile-only" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu">
+        <div class="mobile-nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it Works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+            <a href="login.php" class="btn btn-outline">Login</a>
+            <a href="register.php" class="btn btn-primary">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="glow-circle circle-1"></div>
+            <div class="glow-circle circle-2"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content" data-animate>
+                <span class="badge">GameCut AI 2.0 is live</span>
+                <h1 class="hero-title">Upload Gameplay.<br>Get a <span class="text-gradient">Ready<br>
+                        Short</span><br>Automatically.</h1>
+                <p class="hero-subtitle">Upload your gameplay, choose a game and style, then let AI create a 30-60
+                    second YouTube-ready short with subtitles, music, thumbnail, title, and hashtags.</p>
+                <div class="hero-buttons">
+                    <a href="upload.php" class="btn btn-primary btn-lg">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Generate AI Video
+                    </a>
+                    <a href="#demo" class="btn btn-secondary btn-lg">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        See Result
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual" data-animate style="--reveal-delay: 120ms;">
+                <div class="dashboard-mockup">
+                    <div class="mockup-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <div class="mockup-title">app.gamecut.ai</div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="mockup-sidebar"></div>
+                        <div class="mockup-main">
+                            <div class="mockup-video-area">
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="mockup-timeline">
+                                <div class="track">
+                                    <div class="clip clip-1"></div>
+                                    <div class="clip clip-2"></div>
+                                    <div class="clip clip-3"></div>
+                                </div>
+                                <div class="track audio">
+                                    <div class="wave"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By -->
+    <section class="trusted-by">
+        <div class="container">
+            <p class="section-label">Trusted by creators playing</p>
+            <div class="logo-grid">
+                <div class="game-logo">PUBG</div>
+                <div class="game-logo">BGMI</div>
+                <div class="game-logo">Valorant</div>
+                <div class="game-logo">CS2</div>
+                <div class="game-logo">Fortnite</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="container">
+            <div class="trust-pills">
+                <div class="trust-pill">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    100% Browser-Based
+                </div>
+                <div class="trust-pill">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    No Software to Install
+                </div>
+                <div class="trust-pill">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Works on Any Device
+                </div>
+                <div class="trust-pill">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    TikTok, Shorts & Reels Ready
+                </div>
+                <div class="trust-pill">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Free to Start
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Your <span class="text-gradient">AI Gaming Short Assistant</span></h2>
+                <p>No timelines. No editing skills. Upload, wait, preview, and download a short that is ready to post.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-primary-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <h3>AI Highlight Detection</h3>
+                    <p>Automatically finds the best kills, funny moments, and epic clutches in hours of raw footage.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-secondary-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)"
+                            stroke-width="2">
+                            <circle cx="6" cy="6" r="3"></circle>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+                            <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+                            <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Automatic Cutting</h3>
+                    <p>Cuts out dead space, loading screens, and low-energy parts so the final short feels tight.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-success-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--success)"
+                            stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Auto Subtitle</h3>
+                    <p>Generates highly accurate, animated captions in MrBeast/Alex Hormozi style instantly.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-warning-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--warning)"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <h3>AI Thumbnail</h3>
+                    <p>Analyzes the most engaging frames and suggests click-worthy thumbnails.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-primary-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3>SEO & Titles</h3>
+                    <p>Generates high-converting titles, descriptions, and hashtags tailored for each specific platform.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-secondary-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)"
+                            stroke-width="2">
+                            <path d="M9 18V5l12-2v13"></path>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <circle cx="18" cy="16" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3>AI Music Sync</h3>
+                    <p>Automatically selects and syncs copyright-free background music to match the energy of your
+                        gameplay.</p>
+                </div>
+
+                <!-- Feature 7 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-success-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--success)"
+                            stroke-width="2">
+                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                            <line x1="4" y1="22" x2="4" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3>Ready-to-Post Export</h3>
+                    <p>Creates vertical shorts optimized for YouTube Shorts, TikTok, and Instagram Reels.</p>
+                </div>
+
+                <!-- Feature 8 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-warning-light">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--warning)"
+                            stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Viral Score</h3>
+                    <p>AI predicts your video's viral potential based on pacing, action density, emotional peaks, and
+                        platform trends.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works section-padding bg-card">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>From Raw Gameplay to <span class="text-gradient">Finished Short</span></h2>
+                <p>Upload → choose game → choose style → AI generates → preview → download.</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-line"></div>
+
+                <div class="step">
+                    <div class="step-icon">1</div>
+                    <div class="step-content">
+                        <h3>Upload</h3>
+                        <p>Drag and drop a gameplay recording from your stream, capture card, or screen recorder.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">2</div>
+                    <div class="step-content">
+                        <h3>Choose Game</h3>
+                        <p>Select the game so GameCut can look for the moments that matter in that genre.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">3</div>
+                    <div class="step-content">
+                        <h3>Choose Style</h3>
+                        <p>Pick Esports, Funny, Cinematic, or Fast Montage. The AI handles the editing decisions.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">4</div>
+                    <div class="step-content">
+                        <h3>AI Generates</h3>
+                        <p>GameCut finds highlights, trims the video, adds subtitles and music, and creates metadata.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-icon">5</div>
+                    <div class="step-content">
+                        <h3>Download</h3>
+                        <p>Approve the result and download your finished short.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>See it in <span class="text-gradient">Action</span></h2>
+                <p>See what the AI turns a long gameplay recording into.</p>
+            </div>
+
+            <div class="demo-comparison">
+                <div class="demo-box before">
+                    <div class="demo-label">Raw Footage (2 Hours)</div>
+                    <div class="video-placeholder before-bg">
+                        <div class="play-btn-large">▶</div>
+                    </div>
+                </div>
+
+                <div class="demo-arrow">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+
+                <div class="demo-box after">
+                    <div class="demo-label after-label">GameCut Edit (30 Secs)</div>
+                    <div class="video-placeholder after-bg">
+                        <div class="floating-caption">"OH MY GOD!"</div>
+                        <div class="play-btn-large">▶</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing section-padding bg-card">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Simple, transparent <span class="text-gradient">pricing</span></h2>
+                <p>Choose the plan that fits your content creation journey.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price"><span>$0</span>/mo</div>
+                    <p class="pricing-desc">Perfect for testing the waters.</p>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> 2 hours of upload / month</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> 720p Export (Shorts & TikTok)</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> Basic Highlights</li>
+                        <li class="disabled"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg> No Auto-Subtitles</li>
+                        <li class="disabled"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg> No SEO Metadata</li>
+                        <li class="disabled"><svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg> Watermark</li>
+                    </ul>
+                    <a href="register.php" class="btn btn-outline w-100">Get Started Free</a>
+                </div>
+
+                <!-- Pro -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price"><span>$19</span>/mo</div>
+                    <p class="pricing-desc">For serious content creators.</p>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> 20 hours of upload / month</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> 4K Multi-Platform Export</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> Advanced AI Highlights</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> Animated Subtitles</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> AI Titles, Descriptions & Hashtags</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> AI Thumbnail Generator</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> No Watermark</li>
+                    </ul>
+                    <a href="register.php" class="btn btn-primary w-100">Start Free Trial</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price"><span>$49</span>/mo</div>
+                    <p class="pricing-desc">For esports orgs and agencies.</p>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> Unlimited uploads</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> 4K Multi-Platform Export</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> Custom Branding & Overlays</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> White-label Dashboard</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> API Access for Automation</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg> Dedicated Account Manager</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline w-100">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq section-padding">
+        <div class="container faq-container">
+            <div class="section-header text-center">
+                <h2>Frequently Asked <span class="text-gradient">Questions</span></h2>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        How does the AI know what a highlight is?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Our AI analyzes multiple factors including in-game sound (gunshots, explosions), player voice
+                            volume (shouting, excitement), and visual changes (killfeeds, bright flashes) to determine
+                            high-intensity moments.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        What games are supported?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>While GameCut works with almost any game, it is highly optimized for shooters and battle
+                            royales like Valorant, CS2, PUBG, BGMI, Apex Legends, and Fortnite.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Can I manually edit the video after the AI is done?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Version 1 is intentionally approval-based: preview and download. Future versions
+                            can add optional controls like subtitle style, music choice, and more action/funny
+                            weighting.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Do I need to install any software?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Absolutely not. GameCut AI is 100% browser-based. You can upload, preview, and download your
+                            videos from any device - no downloads, no plugins, no software installation required.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Which platforms can I export to?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="accordion-content">
+                        <p>GameCut AI exports platform-optimized videos for TikTok (9:16), YouTube Shorts (9:16),
+                            Instagram Reels (9:16), and standard YouTube (16:9). Each format is automatically sized,
+                            compressed, and paired with AI-generated captions and metadata for that specific platform.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <h2>Get In Touch</h2>
+                <p>Have questions? We're here to help.</p>
+            </div>
+            <div class="contact-form-container fade-in"
+                style="max-width: 600px; margin: 0 auto; background: var(--card); border: 1px solid var(--border); padding: 2rem; border-radius: 16px;">
+                <form data-contact-form style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div>
+                        <label for="contact-name"
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">Name</label>
+                        <input type="text" id="contact-name" placeholder="Your Name"
+                            style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text);"
+                            required>
+                    </div>
+                    <div>
+                        <label for="contact-email"
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">Email
+                            Address</label>
+                        <input type="email" id="contact-email" placeholder="you@example.com"
+                            style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text);"
+                            required>
+                    </div>
+                    <div>
+                        <label for="contact-message"
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">Message</label>
+                        <textarea id="contact-message" rows="4" placeholder="How can we help?"
+                            style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background: var(--background); color: var(--text); resize: vertical;"
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" style="justify-content: center;">Send
+                        Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#footerLogoA)" />
+                        <path d="M2 17L12 22L22 17" stroke="url(#footerLogoB)" stroke-width="2"
+                            stroke-linecap="round" />
+                        <path d="M2 12L12 17L22 12" stroke="url(#footerLogoC)" stroke-width="2"
+                            stroke-linecap="round" />
+                        <defs>
+                            <linearGradient id="footerLogoA" x1="12" y1="2" x2="12" y2="12"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#7C3AED" />
+                                <stop offset="1" stop-color="#3B82F6" />
+                            </linearGradient>
+                            <linearGradient id="footerLogoB" x1="12" y1="17" x2="12" y2="22"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#7C3AED" />
+                                <stop offset="1" stop-color="#3B82F6" />
+                            </linearGradient>
+                            <linearGradient id="footerLogoC" x1="12" y1="12" x2="12" y2="17"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#7C3AED" />
+                                <stop offset="1" stop-color="#3B82F6" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span>GameCut AI</span>
+                </a>
+                <p>Upload gameplay. Let AI create the short. Download and post.</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#demo">Showcase</a>
+                </div>
+                <div class="link-group">
+                    <h4>Company</h4>
+                    <a href="#how-it-works">About</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#faq">Creator FAQ</a>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="settings.php">Privacy Settings</a>
+                    <a href="settings.php">Terms & Account</a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 GameCut AI. All rights reserved.</p>
+            <div class="socials">
+                <a href="#contact" aria-label="Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                        </path>
+                    </svg></a>
+                <a href="#contact" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg></a>
+                <a href="#contact" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                        </path>
+                    </svg></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

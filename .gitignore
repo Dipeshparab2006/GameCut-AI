@@ -1,0 +1,42 @@
+# Local configuration and secrets
+GameCut-AI/.env
+GameCut-AI/.env.*
+!GameCut-AI/.env.example
+
+# Application runtime data. These files may contain user content, session IDs,
+# access tokens, or operational details and must never be committed.
+*.log
+*.pid
+php-server-*.log
+query
+GameCut-AI/logs/*
+!GameCut-AI/logs/.htaccess
+GameCut-AI/tmp/*
+!GameCut-AI/tmp/.gitkeep
+GameCut-AI/uploads/original/*
+!GameCut-AI/uploads/original/.gitkeep
+GameCut-AI/uploads/processed/*
+!GameCut-AI/uploads/processed/.gitkeep
+GameCut-AI/uploads/temp/*
+!GameCut-AI/uploads/temp/.gitkeep
+GameCut-AI/images/avatars/*
+!GameCut-AI/images/avatars/.gitkeep
+
+# Python environments and generated caches
+GameCut-AI/.venv/
+GameCut-AI/python/.venv/
+GameCut-AI/**/__pycache__/
+GameCut-AI/**/*.py[cod]
+GameCut-AI/python/.pytest_cache/
+GameCut-AI/python/.mypy_cache/
+GameCut-AI/python/.ruff_cache/
+
+# Editor and operating-system state
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+# Generated reports and local experiments
+GameCut-AI/output/
+GameCut-AI/python/scratch/
+GameCut-AI/tools/__pycache__/
