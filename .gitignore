@@ -37,6 +37,5 @@ Thumbs.db
 .idea/
 .vscode/
 # Generated reports and local experiments
-GameCut-AI/output/
-GameCut-AI/python/scratch/
+# (Reports in GameCut-AI/output/ are now tracked)
 GameCut-AI/tools/__pycache__/

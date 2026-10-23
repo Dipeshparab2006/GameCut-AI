@@ -1,0 +1,315 @@
+A
+PROJECT REPORT ON
+GAMECUT AI
+AI ASSISTED VIDEO EDITING AND HIGHLIGHT GENERATION PLATFORM
+
+Designed By: Project Student
+Submitted To: Department of Computer Science
+In the partial fulfillment of the requirements for B.Sc. Computer Science
+Academic Year: 2025-26
+
+==========================================================================================
+DECLARATION
+==========================================================================================
+I hereby declare that the project entitled “GameCut AI: AI Assisted Video Editing and Highlight Generation Platform” is my original academic work. The analysis, design, implementation, testing, and documentation presented in this report are based on the current project source and its supporting documentation. External technologies and documentation used by the project are acknowledged in the references.
+Date: ____________________    Place: ____________________    Signature: Project Student
+
+==========================================================================================
+CERTIFICATE
+==========================================================================================
+This is to certify that the project work entitled “GameCut AI: AI Assisted Video Editing and Highlight Generation Platform” has been satisfactorily carried out during the academic year 2025-26. The work demonstrates web development, database management, Python media processing, artificial intelligence planning, FFmpeg rendering, and software testing.
+Project Guide: ____________________    External Examiner: ____________________
+Head of Department: ____________________    Date: ____________________
+
+==========================================================================================
+ACKNOWLEDGEMENT
+==========================================================================================
+It is my great pleasure to express sincere thanks to all those who supported the completion of this project. I am grateful to the project guide and the Department of Computer Science for their guidance and encouragement. I also acknowledge the open-source communities behind PHP, Python, MySQL, FFmpeg, OpenCV, PySceneDetect, faster-whisper, and related tools used in the implementation.
+
+==========================================================================================
+INDEX
+==========================================================================================
+1. CHAPTER I - Acknowledgement
+2. CHAPTER II - Synopsis of the Project
+3. CHAPTER III - Main Report
+   Objective and Scope of the Project
+   Theoretical Background
+   Survey of Literature
+   Research Analysis and Design
+   System Requirements Analysis
+   System Planning
+   Details of Hardware and Software Used
+   Detailed Life Cycle of the Project
+   System Architecture in Text
+   Data Flow Description
+   Entity Relationship Description
+   Activity and Class Description
+   Input and Output Screen Design
+   Process Involved
+   Methodology Used for Testing
+   Test Cases and Test Reports
+   Code and File Structure of the Project
+4. CHAPTER IV - Annexure
+5. CHAPTER V - Conclusion
+6. CHAPTER VI - Future Enhancement
+7. CHAPTER VII - References and Bibliography
+
+
+==========================================================================================
+DETAILED PROJECT CONTENT
+==========================================================================================
+CHAPTER II - SYNOPSIS OF THE PROJECT
+
+
+1. PROJECT INTRODUCTION
+-----------------------
+GameCut AI is a browser-based AI-assisted video editing platform created for gaming content creators. It addresses the practical problem of converting long gameplay recordings into short, vertical, captioned videos. The system provides an end-to-end workflow covering authentication, source upload, project creation, asynchronous processing, media analysis, highlight selection, plan validation, FFmpeg rendering, preview, and download. The implementation separates user-facing records from execution state so processing can be monitored and recovered safely.
+
+2. PROBLEM STATEMENT
+--------------------
+Gaming creators frequently record long sessions but have limited time to review every minute of footage. The manual process requires watching the source, marking interesting moments, trimming clips, arranging them, converting the aspect ratio, creating subtitles, rendering, and checking the final file. GameCut AI combines media analysis, safe job orchestration, structured planning, and output validation to reduce that repetitive work.
+
+3. AIM AND OBJECTIVES
+---------------------
+The aim is to develop a reliable web application that identifies candidate highlights from uploaded gameplay, creates a constrained editing plan, generates a vertical short, and makes the result available through a browser preview. Objectives include secure registration and login, private upload storage, project and video management, asynchronous processing, transcript and scene analysis, audio and visual signals, candidate scoring, validated plans, subtitle and thumbnail generation, progress reporting, preview, download, regeneration, cancellation, and safe deletion.
+
+4. SCOPE
+--------
+The current scope includes the PHP web application, browser pages, JavaScript modules, MySQL schema and migration, Python API and worker, detection modules, agent planner, validator, FFmpeg renderer, ffprobe validation, local private media storage, and tests. It excludes automatic social publishing, cloud storage, custom model training, long-term memory, and guaranteed game-specific kill detection. These are future enhancements.
+CHAPTER III - MAIN REPORT
+
+
+5. SURVEY OF LITERATURE
+-----------------------
+Traditional desktop editors provide precise manual control but require the creator to watch and mark footage. Cloud editors provide managed processing but introduce network, storage, and service dependencies. AI highlight systems reduce review time but can be opaque or difficult to reproduce. GameCut AI combines the useful ideas from these approaches while keeping a deterministic V1, local media storage, explainable candidate reasons, validated plans, and a modular path for future providers.
+
+6. RESEARCH ANALYSIS AND DESIGN
+-------------------------------
+The research phase identified upload, media review, highlight selection, reframing, captioning, rendering, and preview as the connected activities in the creator workflow. The design converts them into separate modules so each stage has a clear input and output. Operational risks such as duplicate processing, stale workers, invalid timestamps, missing codecs, and failed cleanup are handled explicitly.
+
+7. SYSTEM PLANNING
+------------------
+Project planning covers investigation, requirements, architecture, database design, implementation, integration, testing, documentation, and deployment preparation. Resources include a development computer, PHP and MySQL, Python dependencies, a browser, media binaries, source storage, and test media. Deliverables include working screens, database schema, worker pipeline, test cases, documentation, and final report. Schedule risk is reduced by delivering authentication, upload, jobs, processing, preview, and tests in stages.
+
+8. HARDWARE AND SOFTWARE USED
+-----------------------------
+A modern computer with an Intel i5-class processor or equivalent, 8 GB or more RAM, adequate disk storage, PHP, MySQL, Python, a browser, FFmpeg, and ffprobe is suitable. PHP manages the web application; JavaScript manages browser interactions; MySQL stores durable state; Python performs analysis and rendering orchestration; OpenCV, PySceneDetect, and faster-whisper support analysis; FFmpeg and ffprobe handle media operations and validation.
+
+9. DETAILED LIFE CYCLE
+----------------------
+The project begins with investigation of the creator problem and definition of scope. Requirements are converted into screens, data entities, job states, and processing stages. The architecture is implemented in layers. Unit, integration, smoke, and concurrency tests verify behavior. Documentation records decisions, limitations, deployment requirements, and future work. The life cycle is iterative because changes to detection and rendering require regression testing.
+
+5. THEORETICAL BACKGROUND
+-------------------------
+The project uses multimedia processing, asynchronous job execution, relational databases, speech recognition, computer vision, scene detection, structured planning, and web security. A video is a timeline containing audio and visual streams. Analysis produces time-based evidence. Planning converts evidence into selected ranges. Validation checks the plan. Rendering produces a derived file. Keeping these stages separate makes the platform easier to test and maintain.
+
+6. FUNCTIONAL REQUIREMENTS
+--------------------------
+The application shall support user registration, login, sessions, authenticated access, media upload, project creation, video metadata, queued AI jobs, worker ownership, transcript and scene analysis, audio and visual analysis, candidate scoring, editing-plan creation, plan validation, vertical rendering, subtitles, thumbnails, ffprobe validation, progress events, preview, download, regeneration, cancellation, deletion, health checks, and cleanup.
+
+7. NON FUNCTIONAL REQUIREMENTS
+------------------------------
+Reliability requires that stale or duplicate workers cannot publish output. Security requires authentication, ownership checks, controlled file paths, and safe upload handling. Maintainability requires separate detection, planning, rendering, API, and job modules. Usability requires clear queued, processing, completed, failed, and cancelled states. Performance requires asynchronous processing. Portability requires a documented PHP, MySQL, Python, and FFmpeg environment.
+
+8. SYSTEM ARCHITECTURE IN TEXT
+------------------------------
+The presentation layer contains browser pages, CSS, and JavaScript. The PHP application layer handles routes, authentication, sessions, uploads, project actions, and API responses. MySQL stores users, projects, videos, jobs, job events, and sessions. The Python worker claims jobs and runs analysis, planning, rendering, and validation. Private storage separates original media, temporary analysis workspaces, and processed outputs. The validation boundary lies between plan generation and FFmpeg execution.
+
+9. DATABASE DESIGN IN TEXT
+--------------------------
+Users store account identity and authentication information. Projects belong to users and provide workspaces. Videos belong to projects and store source information, duration, output path, and metadata. ai_jobs is the canonical execution state and stores status, progress, revision, ownership token, lease, and timestamps. ai_job_events is append-only history for progress, retry, failure, cancellation, and publication. Sessions connect authenticated browser activity to users.
+
+10. DATA FLOW IN TEXT
+---------------------
+A user submits a request through the browser. PHP authenticates the request and validates input. Upload processing stores the source and creates project and video records. A queued job is inserted. The worker claims it and reads the controlled source path. Analysis artifacts are written to an isolated workspace. Candidate scores are supplied to the planner. A validated plan is rendered. The output is checked with ffprobe, recorded in the database, and presented through preview and download.
+
+11. PROCESSING PIPELINE
+-----------------------
+The worker claims a job, prepares a workspace, extracts or analyses audio, runs speech recognition when available, detects scenes, calculates audio and visual signals, writes JSON analysis artifacts, scores candidates, creates an editing plan, validates the plan, trims and normalizes clips, applies 1080x1920 vertical formatting, concatenates clips, maps transcript timestamps, burns subtitles, generates a thumbnail, validates the output, publishes metadata, and appends a completion event.
+
+12. PLAN VALIDATION AND SAFETY
+------------------------------
+The validator rejects non-object plans, missing values, unsupported aspect ratios, empty clips, non-numeric timestamps, negative timestamps, start values greater than or equal to end values, timestamps beyond source duration, clips longer than configured limits, total duration above the permitted maximum, and overlapping clips. Invalid plans do not execute FFmpeg. If an external provider is unavailable or malformed, the deterministic provider is used.
+
+13. JOB ORCHESTRATION
+---------------------
+ai_jobs is the single canonical execution state. A worker claim receives an execution token, lease, heartbeat, and isolated workspace. Progress, retry, failure, and publication updates require the current token. Regeneration creates a new revision and cancels the old revision. Project deletion is asynchronous so active processing is cancelled before files and rows are removed.
+
+14. SCREEN AND MODULE DESIGN
+----------------------------
+Registration and login provide access control. Dashboard shows projects and actions. Upload accepts source media and project information. Processing shows status, progress, messages, cancellation, and regeneration where permitted. Preview shows the generated output and download action. Projects shows history. Settings and profile provide account-facing configuration. JavaScript files are organized by screen, while PHP and Python modules follow backend responsibilities.
+
+15. HARDWARE AND SOFTWARE
+-------------------------
+A modern Windows computer with an Intel i5-class processor or equivalent, at least 8 GB RAM, adequate video storage, PHP, MySQL, Python, a browser, FFmpeg, and ffprobe is suitable for development. The repository includes PHP pages and helpers, JavaScript modules, database schema and migration, Python agents, detection, processing, jobs, utilities, tests, bundled binaries, uploads, and documentation.
+CHAPTER IV - ANNEXURE
+File and folder structure, test references, and deployment notes are included in the preceding main-report sections.
+
+CHAPTER V - CONCLUSION
+
+
+16. LIFE CYCLE AND PLANNING
+---------------------------
+The project life cycle consists of preliminary investigation, requirement analysis, planning, architecture, database design, implementation, integration, verification, evaluation, documentation, and deployment preparation. The system can be developed incrementally: authentication and upload first, then project and job state, analysis, planning, rendering, preview, and testing. Risks include storage exhaustion, missing codecs, speech-recognition failure, malformed plans, database interruption, stale workers, and unsafe deletion.
+CHAPTER VI - FUTURE ENHANCEMENT
+
+
+17. TESTING METHODOLOGY
+-----------------------
+Unit tests verify analysis, scoring, planning, rendering, and helper behavior. Integration tests verify the application pipeline. Smoke tests verify the PHP surface. Concurrency tests verify worker ownership and live queue behavior. Regression tests are required after changes to timestamps, job transitions, output paths, rendering commands, or cleanup logic.
+CHAPTER VII - REFERENCES AND BIBLIOGRAPHY
+
+
+18. TEST CASES
+--------------
+TC-01 registration creates an account. TC-02 login establishes a session. TC-03 upload stores original media. TC-04 project creation stores metadata. TC-05 queued job is claimed with a token. TC-06 malformed plan is rejected. TC-07 overlapping clips are rejected. TC-08 valid plan renders output. TC-09 ffprobe validates output. TC-10 stale worker cannot publish. TC-11 regeneration creates a new revision. TC-12 cancellation prevents unsafe continuation. TC-13 deletion waits for active work. TC-14 preview exposes completed output. TC-15 provider failure falls back safely.
+
+19. SECURITY AND MAINTENANCE
+----------------------------
+Authentication and protected routes must verify identity and ownership. File paths must remain controlled relative paths. The planner cannot submit arbitrary shell commands. Production deployment should add HTTPS, secure cookies, CSRF protection, upload-size limits, MIME checks, antivirus scanning, rate limiting, private storage permissions, secret management, and audit logging. Maintenance includes monitoring failed jobs, clearing temporary files, checking disk usage, rotating logs, testing backups, updating dependencies, and running the full test suite.
+
+20. LIMITATIONS
+---------------
+The current V1 does not guarantee semantic understanding of every game. It has no dedicated kill detector, custom model training, cloud storage, long-term memory, or automatic publishing. Speech recognition is affected by noise and missing audio. Local storage limits scale. Deterministic scoring improves repeatability but may miss subtle context that future multimodal models could detect.
+
+21. CONCLUSION
+--------------
+GameCut AI demonstrates a complete academic project for AI-assisted video editing. It combines web development, database design, asynchronous job processing, multimedia analysis, constrained planning, media rendering, preview, and testing. The main engineering contribution is the separation of analysis, planning, validation, and rendering together with durable job ownership and event history.
+
+22. FUTURE ENHANCEMENT
+----------------------
+Future work may include game-specific event detection, multimodal ranking, human review before rendering, cloud storage, scalable workers, branded templates, multiple aspect ratios, multilingual captions, improved subtitle styling, direct social publishing, monitoring dashboards, and stronger production security. Each enhancement should preserve plan validation and ownership safeguards.
+
+23. REFERENCES AND BIBLIOGRAPHY
+-------------------------------
+GameCut AI documentation: docs/architecture.md, docs/ai-pipeline.md, database/database.sql, and database/migrations/001_durable_job_orchestration.sql. PHP documentation: https://www.php.net/docs.php. Python documentation: https://docs.python.org/3/. FFmpeg documentation: https://ffmpeg.org/documentation.html. OpenCV documentation: https://docs.opencv.org/. PySceneDetect documentation: https://www.scenedetect.com/. MySQL documentation: https://dev.mysql.com/doc/. faster-whisper project documentation is used for speech-processing context.
+
+==========================================================================================
+END OF PROJECT REPORT
+==========================================================================================
+
+
+==========================================================================================
+EXPANDED DETAILED MAIN REPORT
+==========================================================================================
+
+1. INTRODUCTION TO THE CURRENT PROJECT IMPLEMENTATION
+------------------------------------------------------
+GameCut AI is implemented as a complete web application rather than as an isolated video-processing script. The user begins in a browser, creates or enters an account, uploads a source video, and receives a project-level view of the work. The browser does not have to remain inside one long HTTP request while the media is being analysed. Instead, the PHP application records a job and the Python worker performs the long-running work. This division is important because speech recognition, scene detection, and video rendering can take considerably longer than a normal page request.
+
+The system has a clear distinction between a source video and a generated result. The original upload remains available as the input for analysis and regeneration. Temporary analysis files are placed under a job-specific directory. The final processed file is written to a processed-media location and its relative path is stored with the video metadata. This arrangement allows the same source to be processed again with a new revision and prevents intermediate files from being confused with user-facing output.
+
+The project is intended for a first-pass editing workflow. It does not pretend that a deterministic ranking system has complete knowledge of the creator’s intention. Instead, it produces a reasonable set of candidates, explains the signals used, validates the proposed ranges, and renders a result that can be previewed. This is a practical balance between automation, reproducibility, and future extensibility.
+
+2. DETAILED PROBLEM ANALYSIS
+----------------------------
+The amount of raw footage produced by a gamer is usually much larger than the amount that can be published. A creator may record an entire session even though the final short contains only a few seconds from several different parts of the recording. Manual review has a high attention cost because the creator must watch even the parts that will later be discarded. The same source may also need to be reframed, captioned, and rendered in a different format for a mobile platform.
+
+The problem becomes more difficult when the editing process is implemented without job management. A browser request can time out while FFmpeg is still running. A second click can create duplicate work. A retry can publish an older result after a newer result has already been generated. A failed command can leave temporary files and a misleading project status. GameCut AI treats job state as a first-class part of the system rather than hiding it inside a single processing function.
+
+The solution therefore has two goals. The first is creator productivity: reduce the time spent discovering and preparing candidate clips. The second is software reliability: make every major stage visible, testable, and protected by validation. A system that produces a video but cannot explain whether the file is current, valid, or owned by the correct user is not sufficient for this project.
+
+3. DETAILED OBJECTIVES AND EXPECTED RESULTS
+-------------------------------------------
+The first objective is to provide a consistent user journey. A new user should be able to register, log in, reach a dashboard, submit a source video, view a project, observe processing, and access a completed preview. Each screen should communicate what action is available and what state the project is in. This includes failure states because a media-processing application cannot assume that every upload or codec operation will succeed.
+
+The second objective is to make analysis useful without making it opaque. Transcript, scene, audio, and visual signals are stored as structured artifacts. Candidate ranges contain reasons. The planner receives data that can be inspected. When a candidate is selected, the system can explain that it was supported by one or more available signals rather than presenting an unexplained score.
+
+The third objective is to protect the rendering boundary. The plan must be validated before FFmpeg runs. The output must be checked after FFmpeg finishes. Job ownership must be checked when progress or publication is written. These checks create a chain of trust from the original request to the final preview without assuming that any single component is always correct.
+
+4. DETAILED LITERATURE AND TECHNOLOGY REVIEW
+---------------------------------------------
+Manual desktop editors are strong when a user wants complete artistic control. They offer timeline editing, transitions, audio mixing, effects, and frame-level adjustments. Their limitation in this problem is discovery: the editor still needs to find the interesting moments. GameCut AI does not attempt to remove the value of manual editing; it automates the repetitive first review so that manual attention can be spent on refinement.
+
+Cloud editors provide managed infrastructure and can scale storage or rendering, but they also introduce dependency on network quality, account permissions, pricing, service availability, and the privacy policy of an external provider. A local/private V1 is appropriate for academic development because the complete pipeline can be tested inside the project workspace. The storage interface can later be changed to an object store without changing the user-facing project model.
+
+Speech recognition, scene detection, and computer vision are complementary rather than interchangeable. Speech can identify reactions or commentary, but it cannot identify a visually important silent event. Scene boundaries can identify a transition, but not whether the transition matters. Audio energy can indicate excitement, but also a loud unimportant sound. Combining signals and retaining reasons is therefore more appropriate than relying on a single detector.
+
+5. DETAILED REQUIREMENTS BY MODULE
+----------------------------------
+Authentication requires registration, password handling, login, session establishment, protected routes, and logout. A session must be associated with a user, and every project operation must use that identity. The system should not rely on a hidden project identifier alone because a user could otherwise request another user’s project by changing a URL or API parameter.
+
+Upload requires validation of the request, controlled naming or storage, a relationship to the authenticated user, and metadata creation. The original path stored in the database should be a controlled relative value. The upload process should not allow the browser to choose an arbitrary server path. The server must be the authority on the actual location and ownership of the file.
+
+Project management requires creation, listing, opening, regeneration, cancellation, and deletion. A project is a user-facing concept, while a video and a job are processing concepts. This distinction allows a project to show a simple status while the job layer retains revision, progress, lease, event, and failure information.
+
+Processing requires an asynchronous start action and a status retrieval action. The browser can poll or refresh status while the worker updates the database. The processing interface should not show completed until the result has passed output validation. A failure message should describe the stage that failed and should not imply that the original source was lost.
+
+Preview and download require a completed output and an ownership check. A generated file should not be considered public simply because it exists in the processed directory. The preview route should verify that the current user owns the related project and that the output path belongs to the controlled storage area.
+
+6. DETAILED DATABASE AND JOB MODEL
+----------------------------------
+The database model has a user-facing side and an execution side. Users, projects, and videos support the dashboard and project pages. Jobs and job events support the worker and operational history. Sessions support browser authentication. Keeping these concepts separate prevents an execution retry from destroying useful project information.
+
+The ai_jobs row is the authoritative record for current processing state. A typical job must identify the related video, status, progress, revision, creation time, update time, and ownership information. When a worker claims a job, the token and lease identify which worker is allowed to write progress. A heartbeat indicates that the worker is still active. If the ownership condition is not satisfied, the update must be rejected or ignored.
+
+The ai_job_events table complements the current state. A status column can say that a job is processing, but an event history can explain that it was queued, claimed, analysed, validated, rendered, and published. It can also show retries or failures. This history is valuable for debugging and for demonstrating that the project has an auditable processing lifecycle.
+
+7. DETAILED WORKER EXECUTION
+----------------------------
+The worker first finds eligible queued work. It attempts to claim one job atomically so that another worker cannot claim the same revision in an unsafe way. After claiming, it prepares a workspace that is unique to the job. The worker then reads the source path from the existing video record instead of accepting an arbitrary path from a planner response.
+
+Each stage should update progress only through the current ownership token. The worker may report that it is preparing, analysing audio, analysing scenes, scoring candidates, creating a plan, validating, rendering, or validating output. If a stage fails, the worker records the failure and stops further publication. If the lease is lost, the worker must not continue to write as if it were still the owner.
+
+When regeneration is requested, the system creates a new revision. The old active revision is cancelled or marked as no longer authoritative. This avoids a race in which an older job finishes after a newer job and overwrites the newest output path. The revision model is especially important when users are allowed to retry with changed preferences or after a transient failure.
+
+8. DETAILED ANALYSIS ARTIFACTS
+------------------------------
+scene_analysis.json represents detected scene boundaries and related information. It allows the candidate scorer to reason about visual transitions without rerunning the detector every time a planning rule changes. transcript.json represents speech segments with source timestamps and text. It supports subtitle creation and can provide evidence for a spoken reaction or phrase.
+
+audio_analysis.json represents optional audio energy, peak, or change signals. visual_analysis.json represents optional frame-change or visual activity signals. highlight_candidates.json represents the candidate ranges that combine available evidence. These artifacts are also useful during testing because a developer can inspect the intermediate result rather than only inspecting the final video.
+
+The use of JSON is practical for this V1 because it is easy to inspect and exchange between Python modules. A production system might store selected summaries in a database or object store, but the logical separation would remain the same: raw analysis, candidate selection, plan, render output, and publication metadata are different responsibilities.
+
+9. DETAILED RENDERING AND SUBTITLE LOGIC
+----------------------------------------
+The renderer must handle the difference between source time and output time. If the source contains clips at 12-20 seconds and 75-90 seconds, the output timeline begins the first clip at zero and places the second clip immediately after the first. A transcript segment from the second source range must therefore be shifted by the duration of the first selected range before it is burned into the result.
+
+Vertical output requires a consistent target canvas. The current pipeline uses a 9:16 target and a 1080x1920 frame size. Horizontal source footage is reframed using a center crop. Future versions may add subject-aware cropping or layout templates, but the V1 renderer must produce predictable dimensions so preview and downstream use are reliable.
+
+The renderer normalizes selected clips before concatenation because source segments may have different codecs, frame rates, audio layouts, or metadata. Normalization reduces concatenation errors. After rendering, ffprobe checks the output instead of trusting the process exit code alone. This final check is important because a command can complete while producing a file that is empty, incomplete, or missing expected streams.
+
+10. DETAILED USER INTERFACE BEHAVIOR
+------------------------------------
+The dashboard is the user’s project overview. It should show enough information to distinguish a new project from a project that is processing or completed. The upload action should be easy to find. A project card or row should link to the relevant processing or preview screen rather than leaving the user to search through files.
+
+The processing screen is a state display, not merely a spinner. It should show the project name, current status, progress where available, and a readable error when a job fails. Polling must not create duplicate jobs. The start action should be disabled or made idempotent when an active job already exists for the current revision.
+
+The preview screen is the point at which the user evaluates the result. It should display the generated video in a format that reflects the intended vertical output. The download action should be clearly associated with the completed result. Regeneration should create a new revision rather than silently replacing the state of an active job.
+
+11. DETAILED TESTING MATRIX
+---------------------------
+Authentication tests verify new registration, duplicate account handling, invalid credentials, session creation, protected-route behavior, and logout. Upload tests verify supported and unsupported files, missing input, storage creation, database metadata, and ownership. Project tests verify list, open, regenerate, cancel, and delete behavior for the correct user.
+
+Pipeline tests verify that analysis artifacts are created in the job workspace, that candidate timestamps remain within source duration, and that the planner receives the expected structured summaries. Validator tests verify each rejection condition separately: non-object plans, unsupported ratios, empty clips, invalid numbers, negative timestamps, out-of-range timestamps, long clips, excessive total duration, and overlap.
+
+Worker tests verify claim ownership, heartbeat behavior, lease expiration, stale-token rejection, retry behavior, cancellation, revision changes, and publication guards. Rendering tests verify a valid MP4, expected dimensions, subtitle timing, thumbnail creation, and ffprobe validation. Cleanup tests verify that temporary work is removed at the correct time and that an active project is not deleted while an owned job is still processing.
+
+12. DETAILED ERROR AND RECOVERY DESIGN
+--------------------------------------
+An upload failure should leave the user with a clear reason and should not create a misleading completed project. An analysis failure should preserve enough event information to identify whether the problem was audio extraction, recognition, scene detection, or a missing source. A plan validation failure should report the invalid condition and should not call the renderer.
+
+A rendering failure should preserve the original source and the analysis evidence whenever retention policy allows. This supports retry or diagnosis. A provider failure should activate the deterministic fallback when the fallback can produce a valid plan. If no valid candidate exists, the system should fail cleanly rather than rendering an arbitrary clip.
+
+Deletion is treated as a lifecycle operation rather than an immediate file removal. The application requests cancellation, workers lose ownership safely, and the deletion reaper removes files and database rows only after no queued or processing job remains. This reduces the chance of a worker writing into a directory that has already been deleted.
+
+13. DETAILED SECURITY AND DEPLOYMENT CHECKLIST
+------------------------------------------------
+Before deployment, configure secrets outside source code, enable HTTPS, set secure session cookie attributes, apply database migrations, verify password hashing, add CSRF protection, restrict upload size, validate MIME and extension, and keep media directories private. Ensure that generated download responses perform an ownership check before serving a file.
+
+For operations, verify that PHP can reach MySQL, the Python environment has its required packages, FFmpeg and ffprobe are available at the configured paths, uploads are writable, temporary directories can be created, processed directories can be written, and the health endpoint reports the expected dependencies. Use a small test video before testing a long recording.
+
+For maintenance, monitor disk usage and failed jobs, inspect stale leases, remove temporary work according to retention policy, back up the database, protect logs, rotate old outputs, and run tests after dependency upgrades. A production system should also add monitoring for processing duration, queue depth, failure rate, and worker availability.
+
+14. DETAILED LIMITATIONS AND EVALUATION
+---------------------------------------
+The quality of a generated highlight depends on the quality of the source and the available signals. A quiet video with no speech may provide less evidence. A game interface can change rapidly without indicating an important event. A loud sound can be exciting or irrelevant. The deterministic scorer is therefore best interpreted as a first-pass ranking system, not as a complete human editor.
+
+The system is technically complete as a V1 workflow, but production readiness would require stronger security, storage, observability, backup, and scaling controls. The report distinguishes implemented behavior from future work so that evaluation remains accurate. A feature is not treated as completed merely because it is listed as a possible enhancement.
+
+15. FINAL PROJECT SUMMARY
+-------------------------
+GameCut AI provides a connected path from authenticated upload to validated video output. It combines a PHP interface, MySQL persistence, Python analysis, a constrained planning layer, FFmpeg rendering, job ownership, event history, preview, and tests. The project demonstrates how AI assistance can be added to a media application without giving an external response unrestricted control over execution.
+
+The final contribution is a modular foundation. The creator can receive a first-pass vertical short. The developer can inspect intermediate JSON and job events. The maintainer can reason about failures and ownership. A future version can add stronger detection, manual review, cloud storage, publishing, and monitoring while retaining the core safety boundaries.
+
