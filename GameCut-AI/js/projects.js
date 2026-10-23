@@ -11,6 +11,14 @@ document.querySelectorAll('.delete-project-btn').forEach(button => {
                 body
             });
             const result = await response.json();
+            // A stale card can remain in an already-open tab after the record
+            // was deleted elsewhere. Treat 404 as success from the user's
+            // point of view and remove that card from the current list.
+            if (response.status === 404) {
+                button.closest('.project-card')?.remove();
+                window.showToast?.('Project removed', 'It was already deleted from the database.');
+                return;
+            }
             if (!response.ok || !result.ok) throw new Error(result.message || 'Delete failed');
             button.closest('.project-card')?.remove();
             window.showToast?.('Project deleted', response.status === 202

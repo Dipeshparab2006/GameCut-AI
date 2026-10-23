@@ -1,0 +1,67 @@
+GAMECUT AI - PROJECT SUMMARY
+============================
+
+Project type
+------------
+GameCut AI is a local web application that uploads gameplay videos, queues
+video-processing jobs, analyzes highlights, renders short-form videos, and
+provides preview/download pages.
+
+Technologies used
+-----------------
+- Frontend: HTML5, CSS3, vanilla JavaScript, responsive layouts.
+- Backend: PHP 8.2 using sessions, CSRF protection, PDO, and JSON endpoints.
+- Database: MySQL/MariaDB database named gamecut_ai.
+- Processing: Python 3 with a background worker and job queue.
+- Video tools: FFmpeg and ffprobe for media validation, analysis, and rendering.
+- Browser storage: IndexedDB for optional local project/video storage.
+- Local server: XAMPP PHP development server.
+- Optional AI: Ollama can be used, but deterministic fallback processing is
+  available and does not require an API key or internet access.
+
+Main features
+-------------
+- User registration and login.
+- Gameplay video upload and validation.
+- Database-backed project and video records.
+- Queued and active processing status with progress polling.
+- AI highlight analysis and short-video rendering.
+- Source/output video comparison page.
+- Downloadable generated videos and thumbnails.
+- Project deletion with database and file cleanup.
+- Responsive dashboard, project library, settings, upload, processing, and
+  results pages.
+
+Important project sources
+-------------------------
+- PHP pages: *.php in the project root.
+- PHP APIs: api/.
+- PHP shared configuration and authentication: php/.
+- JavaScript: js/.
+- Stylesheets: css/.
+- Python worker and processing pipeline: python/.
+- Database schema and migrations: database/.
+- Uploaded/source/generated media: uploads/.
+- Automated PHP checks: tests/smoke.php.
+- Architecture and pipeline documentation: docs/.
+
+Local services
+--------------
+- MySQL must be running for login, uploads, project data, and queue status.
+- PHP server runs at the configured local URL, currently:
+  http://127.0.0.1:8081
+- The Python worker must be running to process queued video jobs.
+- FFmpeg/ffprobe must be available in the project bin/ directory.
+
+Network requirements
+--------------------
+The core application can run offline. Internet is only optional for remote
+avatar/decorative images or any externally configured AI provider. The
+deterministic processing fallback requires no external API.
+
+Verification status
+-------------------
+- PHP syntax checks passed.
+- JavaScript syntax checks passed.
+- Database connection and health checks passed when MySQL is running.
+- Project smoke tests passed.

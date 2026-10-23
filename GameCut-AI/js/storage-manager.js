@@ -126,7 +126,34 @@ const StorageManager = (() => {
 
     async function deleteProject(id) {
         if (id === undefined || id === null) throw new Error('Invalid project ID');
-        return dbOperation(STORES.PROJECTS, 'readwrite', (store) => store.delete(id));
+        if (!db) await initDB();
+
+        return new Promise((resolve, reject) => {
+            let transaction;
+            try {
+                transaction = db.transaction([STORES.PROJECTS, STORES.VIDEOS], 'readwrite');
+                const projects = transaction.objectStore(STORES.PROJECTS);
+                const videos = transaction.objectStore(STORES.VIDEOS);
+                const videoIndex = videos.index('projectId');
+                const cursorRequest = videoIndex.openCursor(IDBKeyRange.only(id));
+
+                cursorRequest.onsuccess = (event) => {
+                    const cursor = event.target.result;
+                    if (cursor) {
+                        cursor.delete();
+                        cursor.continue();
+                    } else {
+                        projects.delete(id);
+                    }
+                };
+                cursorRequest.onerror = () => reject(cursorRequest.error || new Error('Could not delete project videos'));
+                transaction.oncomplete = () => resolve(true);
+                transaction.onerror = () => reject(transaction.error || new Error('Project deletion failed'));
+                transaction.onabort = () => reject(transaction.error || new Error('Project deletion was aborted'));
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 
     // Video operations (for large files)

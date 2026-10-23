@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentStepText  = document.getElementById('currentStepText');
     const estimatedTimeSpan = document.querySelector('#estimatedTime span');
     const processingMain   = document.querySelector('.processing-main');
+    const pipelineStatus   = document.getElementById('pipelineStatus');
     const projectId        = processingMain ? parseInt(processingMain.dataset.projectId, 10) : 0;
 
     const CIRCUMFERENCE = 565; // 2 * π * 90
@@ -160,6 +161,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const progress    = parseInt(data.progress, 10) || 0;
         const currentStep = data.current_step  || jobStatus;
         const stepKey     = (currentStep || '').toLowerCase();
+
+        if (pipelineStatus) {
+            const queued = jobStatus === 'queued';
+            pipelineStatus.textContent = queued ? 'Queued — waiting for worker' :
+                (jobStatus === 'processing' ? 'Running' : jobStatus);
+            pipelineStatus.classList.toggle('status-processing', queued || jobStatus === 'processing');
+            pipelineStatus.classList.toggle('status-done', jobStatus === 'completed');
+            pipelineStatus.classList.toggle('status-failed', jobStatus === 'failed');
+        }
+        if (queued && estimatedTimeSpan) {
+            const position = Number(data.queue_position || 0);
+            const running = Number(data.other_projects_running || 0);
+            estimatedTimeSpan.textContent = position > 0
+                ? `Queue position ${position}${running ? ` · ${running} other project${running === 1 ? '' : 's'} running` : ''}`
+                : 'Waiting for worker…';
+        }
 
         // --- Update circle & estimated time ---
         setCircleProgress(progress);

@@ -571,3 +571,52 @@ body {
     .summary-grid { grid-template-columns: 1fr; }
     .video-meta-row { font-size: .7rem; }
 }
+
+/* Result-page layout overrides: keep the comparison player wide and usable. */
+.results-hero:has(.comparison-hero-card) {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+}
+
+.results-hero:has(.comparison-hero-card) .results-copy {
+    max-width: 820px;
+}
+
+.results-hero .comparison-hero-card {
+    max-width: none;
+    width: 100%;
+    justify-self: stretch;
+}
+
+.comparison-hero-card .source-preview-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.comparison-hero-card .source-video {
+    display: block;
+    width: 100%;
+    height: clamp(220px, 28vw, 420px);
+    max-height: none;
+    object-fit: contain;
+}
+
+.result-status.status-processing {
+    background: rgba(59, 130, 246, .14);
+    color: #93c5fd;
+}
+
+.result-status.status-failed {
+    background: rgba(239, 68, 68, .14);
+    color: #fca5a5;
+}
+
+@media (max-width: 760px) {
+    .comparison-hero-card .source-preview-card {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-hero-card .source-video {
+        height: auto;
+        aspect-ratio: 16 / 10;
+    }
+}

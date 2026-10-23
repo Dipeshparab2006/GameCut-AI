@@ -31,6 +31,7 @@ try {
                 v.file_size, v.output_path, latest_job.status AS job_status, latest_job.progress
          FROM projects p
          LEFT JOIN videos v ON v.project_id = p.id
+            AND v.id = (SELECT MAX(v2.id) FROM videos v2 WHERE v2.project_id = p.id)
          LEFT JOIN (
              SELECT j1.video_id, j1.status, j1.progress
              FROM ai_jobs j1

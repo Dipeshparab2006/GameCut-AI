@@ -118,7 +118,7 @@ $initialStep = $jobStatus['current_step'] ?? 'Waiting for worker';
                             <h3>Render pipeline</h3>
                             <p>Each stage updates automatically.</p>
                         </div>
-                        <span class="status-processing project-status">Running</span>
+                    <span id="pipelineStatus" class="status-processing project-status">Checking queue…</span>
                     </div>
 
                     <div class="render-metrics">

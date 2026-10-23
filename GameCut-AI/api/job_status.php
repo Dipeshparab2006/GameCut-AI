@@ -49,6 +49,23 @@ try {
         exit();
     }
 
+    $queuePosition = null;
+    $otherRunning = 0;
+    if (($job['job_status'] ?: $job['project_status']) === 'queued' && $job['job_id']) {
+        $queueStmt = $pdo->prepare(
+            "SELECT COUNT(*) FROM ai_jobs queued
+             WHERE queued.status = 'queued' AND queued.id <= ?"
+        );
+        $queueStmt->execute([(int)$job['job_id']]);
+        $queuePosition = (int)$queueStmt->fetchColumn();
+    }
+    $runningStmt = $pdo->prepare(
+        "SELECT COUNT(*) FROM ai_jobs running
+         WHERE running.status = 'processing' AND running.project_id <> ?"
+    );
+    $runningStmt->execute([$projectId]);
+    $otherRunning = (int)$runningStmt->fetchColumn();
+
     echo json_encode([
         'ok' => true,
         'project_id' => (int)$job['project_id'],
@@ -58,6 +75,8 @@ try {
         'progress' => (int)($job['progress'] ?? 0),
         'current_step' => $job['current_step'] ?: ucfirst((string)($job['job_status'] ?: $job['project_status'])),
         'error_message' => $job['error_message'],
+        'queue_position' => $queuePosition,
+        'other_projects_running' => $otherRunning,
         'completed' => $job['job_status'] === 'completed' || $job['project_status'] === 'completed',
         'ready' => $job['project_status'] === 'completed' && !empty($job['output_path']),
         'preview_url' => appUrl('preview.php?project_id=' . (int)$job['project_id']),

@@ -73,6 +73,7 @@ try {
 
 $title = $result['project_name'] ?? 'No completed short yet';
 $statusText = $hasOutput ? 'Ready' : ucfirst($result['job_status'] ?? $result['project_status'] ?? 'Waiting');
+$statusClass = $hasOutput ? 'status-done' : (strtolower($statusText) === 'failed' ? 'status-failed' : 'status-processing');
 $progress = (int)($result['progress'] ?? 0);
 $videoDuration = $result['duration'] ?? 'Unknown';
 ?>
@@ -163,7 +164,7 @@ $videoDuration = $result['duration'] ?? 'Unknown';
             <div class="result-panel ai-summary stagger-1">
                 <div class="section-header-small">
                     <h3>AI Summary</h3>
-                    <span class="status-done result-status"><?php echo htmlspecialchars($statusText); ?></span>
+                    <span class="<?php echo htmlspecialchars($statusClass); ?> result-status"><?php echo htmlspecialchars($statusText); ?></span>
                 </div>
                 <div class="summary-grid">
                     <div class="summary-item">
